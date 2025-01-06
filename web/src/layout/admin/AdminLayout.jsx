@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Badge, Dropdown, Layout, Menu, App } from 'antd';
+import { App, Avatar, Badge, Dropdown, Layout, Menu } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { jwtDecode } from 'jwt-decode';
 import { Logo } from '@/common/Image.jsx';
@@ -9,7 +9,7 @@ import { RouteRules } from '@/routes/RouteRules.jsx';
 import { DynamicIcon } from '@/utils/IconLoad.jsx';
 import { AxiosGet } from '@/handler/HandlerUtilsRequest.jsx';
 import { Apis } from '@/common/APIConfig.jsx';
-import { ManOutlined, WomanOutlined, QuestionOutlined } from '@ant-design/icons';
+import { ManOutlined, QuestionOutlined, WomanOutlined } from '@ant-design/icons';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
 
 const { Header, Content, Sider } = Layout;
@@ -32,16 +32,13 @@ const siderMenus = [
     getItem('告警订阅', '/alert/subscription'),
     getItem('告警屏蔽', '/alert/block'),
     getItem('告警历史', '/alert/history'),
-    getItem('告警回调', '/alert/callback'),
+    getItem('告警回调', '/alert/callback')
   ]),
-  getItem('告警通知', '/alert-notification', <DynamicIcon iconName={'MailOutlined'} />, [
-    getItem('通知媒介', '/alert-notification/media'),
-    getItem('通知模板', '/alert-notification/template'),
-  ]),
+  getItem('告警通知', '/alert-notification', <DynamicIcon iconName={'MailOutlined'} />, [getItem('通知媒介', '/alert-notification/media'), getItem('通知模板', '/alert-notification/template')]),
   getItem('告警分组', '/alert-group', <DynamicIcon iconName={'ProjectOutlined'} />, [
     getItem('项目管理', '/alert-group/project'),
     getItem('团队管理', '/alert-group/team'),
-    getItem('人员排班', '/alert-group/schedule'),
+    getItem('人员排班', '/alert-group/schedule')
   ]),
   getItem('数据来源', '/datasource', <DynamicIcon iconName={'ApiOutlined'} />),
   getItem('系统设置', '/system', <DynamicIcon iconName={'ClusterOutlined'} />, [
@@ -51,13 +48,10 @@ const siderMenus = [
     getItem('角色管理', '/system/role'),
     getItem('菜单管理', '/system/menu'),
     getItem('接口管理', '/system/api'),
-    getItem('权限管理', '/system/permission'),
+    getItem('权限管理', '/system/permission')
   ]),
   getItem('个人中心', '/me', <DynamicIcon iconName={'UserOutlined'} />),
-  getItem('安全审计', '/security-audit', <DynamicIcon iconName={'FileProtectOutlined'} />, [
-    getItem('登录日志', '/security-audit/login'), 
-    getItem('操作日志', '/security-audit/operation'),
-  ]),
+  getItem('安全审计', '/security-audit', <DynamicIcon iconName={'FileProtectOutlined'} />, [getItem('登录日志', '/security-audit/login'), getItem('操作日志', '/security-audit/operation')]),
   getItem('系统信息', '/system-information', <DynamicIcon iconName={'DeploymentUnitOutlined'} />)
 ];
 
@@ -158,7 +152,6 @@ const AdminLayout = () => {
     getSystemRoleApis();
   }, []);
 
-
   return (
     <Layout>
       <Header className="admin-header">
@@ -190,24 +183,8 @@ const AdminLayout = () => {
         </div>
       </Header>
       <Layout className="admin-main">
-        <Sider 
-          className="admin-sider" 
-          theme="light" 
-          width={menuWidth} 
-          collapsedWidth={menuCollapsedWidth} 
-          collapsible 
-          collapsed={collapsed} 
-          onCollapse={handleCollapse}
-        >
-          <Menu
-            className="admin-menu"
-            mode="inline"
-            openKeys={openKeys}
-            onOpenChange={setOpenKeys}
-            selectedKeys={selectedKeys}
-            items={siderMenus}
-            onClick={handleMenuClick}
-          />
+        <Sider className="admin-sider" theme="light" width={menuWidth} collapsedWidth={menuCollapsedWidth} collapsible collapsed={collapsed} onCollapse={handleCollapse}>
+          <Menu className="admin-menu" mode="inline" openKeys={openKeys} onOpenChange={setOpenKeys} selectedKeys={selectedKeys} items={siderMenus} onClick={handleMenuClick} />
         </Sider>
         <Layout className="admin-body">
           <Content className="admin-content">

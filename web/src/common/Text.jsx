@@ -1,14 +1,20 @@
+import { GithubOutlined } from '@ant-design/icons';
+
 // 底部内容
 const FooterDescriptionComponent = () => {
-    // 运行环境
-    const runEnv = window.CONFIG.env;
-    const runEnvText = 'Running Env: ' + runEnv;
-    const githubUrl = 'https://github.com/goer3/Stellar/releases';
-    return (
-        <>
-            <b>👻 STELLAR </b>© 2024 EZOPS.CN. Latest Version: <a href={githubUrl} target="_blank" rel="noreferrer"><GithubOutlined /></a> / {runEnvText}
-        </>
-    );
+  // 运行环境
+  const runEnv = window.CONFIG.env;
+  const runEnvText = 'Running Env: ' + runEnv;
+  const githubUrl = 'https://github.com/goer3/Stellar/releases';
+  return (
+    <>
+      <b>👻 STELLAR </b>© 2024 EZOPS.CN. Latest Version:{' '}
+      <a href={githubUrl} target="_blank" rel="noreferrer">
+        <GithubOutlined />
+      </a>{' '}
+      / {runEnvText}
+    </>
+  );
 };
 
 // 项目描述
