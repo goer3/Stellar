@@ -1,6 +1,5 @@
-const App = () => {
-  return <div>Stellar</div>
-}
+const MainApp = () => {
+  return <div>Stellar</div>;
+};
 
-export default App
-
+export default MainApp;
