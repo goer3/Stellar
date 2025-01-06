@@ -9,8 +9,8 @@ import 'dayjs/locale/zh-cn';
 // 小米字体
 import 'misans/lib/Normal/MiSans-Regular.min.css';
 // antd 样式覆盖和其它样式
-import '@/assets/css/AntdRewrite.less';
-import '@/assets/css/Admin.less';
+import '@/asset/css/AntdRewrite.less';
+import '@/asset/css/Admin.less';
 
 createRoot(document.getElementById('root')).render(
   // autoInsertSpaceInButton：解决按钮的文本为两个汉字时中间自动补充空格的问题，新版本已经废弃
