@@ -14,6 +14,8 @@ const PageConfig = {
   defaultIsPagination: true,
   // 页面标题
   pageTitle: '接口管理' + TitleSuffix,
+  // 页面描述
+  pageDescription: '接口管理',
   // 页面顶部标题
   pageHeaderTitle: '接口管理 / API MANAGEMENT.',
   // 页面关键词
@@ -41,7 +43,7 @@ const SystemApi = () => {
       {/* 页面 header */}
       <Helmet>
         <title>{PageConfig.pageTitle}</title>
-        <meta name="description" content={PageConfig.pageDesc} />
+        <meta name="description" content={PageConfig.pageDescription} />
       </Helmet>
       {/* 页面头部介绍 */}
       <div className="admin-page-header">

@@ -14,6 +14,8 @@ const PageConfig = {
   defaultIsPagination: true,
   // 页面标题
   pageTitle: '即时查询' + TitleSuffix,
+  // 页面描述
+  pageDescription: '即时查询',
   // 页面顶部标题
   pageHeaderTitle: '即时查询 / QUERY.',
   // 页面关键词
@@ -41,7 +43,7 @@ const Query = () => {
       {/* 页面 header */}
       <Helmet>
         <title>{PageConfig.pageTitle}</title>
-        <meta name="description" content={PageConfig.pageDesc} />
+        <meta name="description" content={PageConfig.pageDescription} />
       </Helmet>
       {/* 页面头部介绍 */}
       <div className="admin-page-header">

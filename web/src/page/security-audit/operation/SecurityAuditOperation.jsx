@@ -14,6 +14,8 @@ const PageConfig = {
   defaultIsPagination: true,
   // 页面标题
   pageTitle: '操作日志' + TitleSuffix,
+  // 页面描述
+  pageDescription: '操作日志',
   // 页面顶部标题
   pageHeaderTitle: '操作日志 / OPERATION.',
   // 页面关键词
@@ -41,7 +43,7 @@ const SecurityAuditOperation = () => {
       {/* 页面 header */}
       <Helmet>
         <title>{PageConfig.pageTitle}</title>
-        <meta name="description" content={PageConfig.pageDesc} />
+        <meta name="description" content={PageConfig.pageDescription} />
       </Helmet>
       {/* 页面头部介绍 */}
       <div className="admin-page-header">

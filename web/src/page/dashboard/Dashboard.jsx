@@ -14,6 +14,8 @@ const PageConfig = {
   defaultIsPagination: true,
   // 页面标题
   pageTitle: '工作空间' + TitleSuffix,
+  // 页面描述
+  pageDescription: '工作空间',
   // 页面顶部标题
   pageHeaderTitle: '工作空间 / WORKSPACE.',
   // 页面关键词
@@ -41,7 +43,7 @@ const Dashboard = () => {
       {/* 页面 header */}
       <Helmet>
         <title>{PageConfig.pageTitle}</title>
-        <meta name="description" content={PageConfig.pageDesc} />
+        <meta name="description" content={PageConfig.pageDescription} />
       </Helmet>
       {/* 页面头部介绍 */}
       <div className="admin-page-header">

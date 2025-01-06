@@ -40,7 +40,6 @@ const RouteGuard = ({ children }) => {
     if (!route) {
       navigator('/error/404'); // 验证路由是否存在
     } else {
-      console.log(route);
       // if (matchRoute.auth && !GetToken()) {
       //   // 需要登录但是未登录
       //   message.error('Token 验证失败，请重新登录');

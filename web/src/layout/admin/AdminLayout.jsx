@@ -108,6 +108,7 @@ const AdminLayout = () => {
   // 监听 pathname 变化，更新菜单
   useEffect(() => {
     const keyList = findMenuParentPathList(pathname);
+    console.log(keyList);
     setSiderMenuOpenKeys(keyList);
     setSiderMenuSelectedKeys(pathname);
   }, [pathname]);
@@ -115,13 +116,14 @@ const AdminLayout = () => {
   // 折叠展开侧边菜单处理函数
   const sideMenuCollapsedHandler = (value) => {
     if (value) {
-      // 记住选中菜单，避免状态切换后不继续选中和展开菜单
+      // 记住当前展开的菜单状态
       setSiderMenuRememberedOpenKeys(siderMenuOpenKeys);
       setSiderMenuOpenKeys([]);
     } else {
-      // 添加 100ms 延迟，避免动画卡顿
+      // 展开时，使用最新的父级菜单路径
       setTimeout(() => {
-        setSiderMenuOpenKeys(siderMenuRememberedOpenKeys);
+        const keyList = findMenuParentPathList(pathname);
+        setSiderMenuOpenKeys(keyList);
       }, 100);
     }
     setSiderMenuCollapsed(value);
