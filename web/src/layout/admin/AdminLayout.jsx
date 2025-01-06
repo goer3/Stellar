@@ -63,9 +63,6 @@ const AdminLayout = () => {
   // 选中菜单
   const [siderMenuSelectedKeys, setSiderMenuSelectedKeys] = useState([pathname]);
 
-  // 保存展开的菜单 keys，用于确保展开收起状态切换还能继续展开
-  const [siderMenuRememberedOpenKeys, setSiderMenuRememberedOpenKeys] = useState([]);
-
   // 侧边菜单展开宽度
   const siderMenuWidth = 200;
 
@@ -116,11 +113,8 @@ const AdminLayout = () => {
   // 折叠展开侧边菜单处理函数
   const sideMenuCollapsedHandler = (value) => {
     if (value) {
-      // 记住当前展开的菜单状态
-      setSiderMenuRememberedOpenKeys(siderMenuOpenKeys);
       setSiderMenuOpenKeys([]);
     } else {
-      // 展开时，使用最新的父级菜单路径
       setTimeout(() => {
         const keyList = findMenuParentPathList(pathname);
         setSiderMenuOpenKeys(keyList);
