@@ -1,7 +1,7 @@
 import { ManOutlined, QuestionOutlined, WomanOutlined } from '@ant-design/icons';
 
 // 生成性别徽章
-export const generateGenderBadge = (gender) => {
+export const GenerateGenderBadge = (gender) => {
   return gender === 1 ? (
     <ManOutlined style={{ backgroundColor: '#165dff' }} />
   ) : gender === 2 ? (

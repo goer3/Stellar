@@ -3,7 +3,7 @@ import { App, Avatar, Badge, Dropdown, Layout, Menu } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { Logo } from '@/common/Image.jsx';
 import { DynamicIcon } from '@/common/Icon.jsx';
-import { generateGenderBadge } from '@/common/Tag.jsx';
+import { GenerateGenderBadge } from '@/common/Tag.jsx';
 import { FooterDescriptionComponent } from '@/common/Text.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
 
@@ -155,7 +155,7 @@ const AdminLayout = () => {
             </div>
           </div>
           <div className="admin-right">
-            <Badge count={generateGenderBadge(1)}>
+            <Badge count={GenerateGenderBadge(1)}>
               <Dropdown menu={{ items: dropdownMenuItems }}>
                 <Avatar shape="circle" size={30} src="/image/avatar/default.png" />
               </Dropdown>
