@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { App } from 'antd';
 import { RouteRules } from '@/route/RouteRules.jsx';
-import { GetToken } from '@/handler/Token.jsx';
-import { AxiosGet } from '@/handler/HandlerUtilsRequest.jsx';
-import { Apis } from '@/common/APIConfig.jsx';
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 从路由表中匹配路由，用于验证路由是否合法
@@ -43,23 +40,24 @@ const RouteGuard = ({ children }) => {
     if (!route) {
       navigator('/error/404'); // 验证路由是否存在
     } else {
-      if (matchRoute.auth && !GetToken()) {
-        // 需要登录但是未登录
-        message.error('Token 验证失败，请重新登录');
-        navigator('/login');
-      } else if (matchRoute.auth) {
-        // 需要登录且已登录，则校验 Token 是否过期
-        AxiosGet(Apis.Public.TokenVerification).then((res) => {
-          if (res.code !== 200) {
-            message.error('Token 过期，请重新登录');
-            navigator('/login');
-          }
-        });
-      } else if (location.pathname === '/login' && GetToken()) {
-        // 登录页面还有 Token，则清理 localStorage
-        localStorage.clear();
-      }
-      // 验证路由是否在用户权限范围内，不再则返回 403 页面
+      console.log(route);
+      // if (matchRoute.auth && !GetToken()) {
+      //   // 需要登录但是未登录
+      //   message.error('Token 验证失败，请重新登录');
+      //   navigator('/login');
+      // } else if (matchRoute.auth) {
+      //   // 需要登录且已登录，则校验 Token 是否过期
+      //   AxiosGet(Apis.Public.TokenVerification).then((res) => {
+      //     if (res.code !== 200) {
+      //       message.error('Token 过期，请重新登录');
+      //       navigator('/login');
+      //     }
+      //   });
+      // } else if (location.pathname === '/login' && GetToken()) {
+      //   // 登录页面还有 Token，则清理 localStorage
+      //   localStorage.clear();
+      // }
+      // // 验证路由是否在用户权限范围内，不再则返回 403 页面
     }
   }, [location.pathname]);
 

@@ -159,7 +159,7 @@ export const RouteRules = [
             path: '/system/api',
             name: '接口管理',
             auth: true,
-            element: RouteLazyLoad(React.lazy(() => import('../page/system/api/SystemDepartment.jsx')))
+            element: RouteLazyLoad(React.lazy(() => import('../page/system/api/SystemApi.jsx')))
           },
           {
             path: '/system/permission',
