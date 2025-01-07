@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"stellar/common"
+	"stellar/middleware"
 	"stellar/router"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,8 @@ func Router() *gin.Engine {
 
 	// 创建一个没有中间件的 Gin 路由引擎
 	r := gin.New()
+	r.Use(middleware.Cors)      // 跨域中间件
+	r.Use(middleware.Exception) // 异常处理中间件
 	{
 		// 开放路由，不需要认证
 		publicRouterGroup := r.Group(common.SYSTEM_API_PREFIX)

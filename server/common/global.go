@@ -2,12 +2,16 @@ package common
 
 import (
 	"embed"
+
+	"go.uber.org/zap"
 )
 
 // 全局工具
 var (
-	FS     embed.FS       // 打包的静态资源
-	Config *Configuration // 配置文件解析
+	FS        embed.FS           // 打包的静态资源
+	Config    *Configuration     // 配置文件解析
+	SystemLog *zap.SugaredLogger // 系统日志工具
+	AccessLog *zap.SugaredLogger // 访问日志工具
 )
 
 // 全局变量，根据实际运行情况进行初始化

@@ -19,3 +19,49 @@ system:
     leader-election: true
     # 是否允许成为 Worker，服务启动时可以使用 --worker 参数指定是否开启
     worker: true
+####################################################################################
+# 日志配置
+####################################################################################
+log:
+  system:
+    # 是否开启系统日志，可选值：true、false
+    enabled: true
+    # 日志级别，可选值：debug、info、warn、error、panic、fatal
+    level: debug
+    # 日志输出格式，可选值：json、text
+    format: text
+    # 日志输出路径前缀
+    path-prefix: logs/stellar-system
+    # 是否切割
+    rolling:
+      # 是否开启切割
+      enabled: true
+      # 日志文件最大大小，单位：MB
+      max-size: 100
+      # 日志文件最大数量
+      max-backups: 10
+      # 日志文件最大保留天数
+      max-age: 30
+      # 是否压缩
+      compress: true
+  access:
+    # 是否开启访问日志，可选值：true、false
+    enabled: true
+    # 日志级别，可选值：debug、info、warn、error、panic、fatal
+    level: debug
+    # 日志输出格式，可选值：json、text
+    format: json
+    # 日志输出路径前缀
+    path-prefix: logs/stellar-access
+    # 是否切割
+    rolling:
+      # 是否开启切割
+      enabled: true
+      # 日志文件最大大小，单位：MB
+      max-size: 100
+      # 日志文件最大数量
+      max-backups: 10
+      # 日志文件最大保留天数
+      max-age: 30
+      # 是否压缩
+      compress: true
