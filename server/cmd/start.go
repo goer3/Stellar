@@ -37,6 +37,7 @@ var startCmd = &cobra.Command{
 		initialize.NodeId()                                         // 生成节点唯一标识ID
 		initialize.SystemLogger()                                   // 系统日志初始化
 		initialize.AccessLogger()                                   // 访问日志初始化
+		initialize.MySQL()                                          // MySQL 初始化
 
 		// 打印节点配置启动信息
 		tb := table.NewWriter()
@@ -48,14 +49,14 @@ var startCmd = &cobra.Command{
 		rows = append(rows, table.Row{"节点唯一标识ID", *common.SystemNodeId})
 		rows = append(rows, table.Row{"系统 Go 版本", common.SYSTEM_GO_VERSION})
 		rows = append(rows, table.Row{"系统版本", common.SystemVersion})
-		rows = append(rows, table.Row{"开发者名称", common.SYSTEM_DEVELOPER_NAME})
-		rows = append(rows, table.Row{"开发者邮箱", common.SYSTEM_DEVELOPER_EMAIL})
+		rows = append(rows, table.Row{"开发者", common.SYSTEM_DEVELOPER_NAME + " <" + common.SYSTEM_DEVELOPER_EMAIL + ">"})
 		rows = append(rows, table.Row{"配置文件", common.SystemConfigFilename})
-		rows = append(rows, table.Row{"监听地址", common.Config.System.Listen.Host})
-		rows = append(rows, table.Row{"监听端口", common.Config.System.Listen.Port})
+		rows = append(rows, table.Row{"监听地址", common.Config.System.Listen.Host + ":" + common.Config.System.Listen.Port})
 		rows = append(rows, table.Row{"节点角色 Web Server", common.Config.System.Role.WebServer})
 		rows = append(rows, table.Row{"节点角色 Leader Election", common.Config.System.Role.LeaderElection})
 		rows = append(rows, table.Row{"节点角色 Worker", common.Config.System.Role.Worker})
+		rows = append(rows, table.Row{"MySQL 连接地址", fmt.Sprintf("%s@%s:%d/%s", common.Config.MySQL.Username, common.Config.MySQL.Host, common.Config.MySQL.Port, common.Config.MySQL.Database)})
+
 		tb.AppendRows(rows)
 		fmt.Println(tb.Render())
 

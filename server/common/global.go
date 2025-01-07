@@ -4,6 +4,7 @@ import (
 	"embed"
 
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 // 全局工具
@@ -12,6 +13,7 @@ var (
 	Config    *Configuration     // 配置文件解析
 	SystemLog *zap.SugaredLogger // 系统日志工具
 	AccessLog *zap.SugaredLogger // 访问日志工具
+	DB        *gorm.DB           // 数据库连接
 )
 
 // 全局变量，根据实际运行情况进行初始化

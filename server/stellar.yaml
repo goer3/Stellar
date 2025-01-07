@@ -65,3 +65,27 @@ log:
       max-age: 30
       # 是否压缩
       compress: true
+####################################################################################
+# MySQL 数据库
+####################################################################################
+mysql:
+  # 主机地址
+  host: 127.0.0.1
+  # 端口
+  port: 13306
+  # 数据库
+  database: stellar
+  # 用户名
+  username: root
+  # 密码
+  password: 123456
+  # 超时时间，单位毫秒
+  timeout: 1000
+  # 连接参数
+  params: charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Local
+  # 最大打开链接数
+  max-open-conns: 100
+  # 最大空闲连接数
+  max-idle-conns: 10
+  # 空闲连接最大超时时间，单位分钟
+  max-idle-time: 30

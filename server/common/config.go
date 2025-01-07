@@ -4,6 +4,7 @@ package common
 type Configuration struct {
 	System SystemConfiguration `mapstructure:"system" yaml:"system" json:"system"`
 	Log    LogConfiguration    `mapstructure:"log" yaml:"log" json:"log"`
+	MySQL  MySQLConfiguration  `mapstructure:"mysql" yaml:"mysql" json:"mysql"`
 }
 
 // 系统配置
@@ -47,4 +48,18 @@ type LoggerRollingConfiguration struct {
 	MaxBackups int  `mapstructure:"max-backups" yaml:"max-backups" json:"maxBackups"`
 	MaxAge     int  `mapstructure:"max-age" yaml:"max-age" json:"maxAge"`
 	Compress   bool `mapstructure:"compress" yaml:"compress" json:"compress"`
+}
+
+// MySQL 配置
+type MySQLConfiguration struct {
+	Host         string `mapstructure:"host" yaml:"host" json:"host"`
+	Port         int    `mapstructure:"port" yaml:"port" json:"port"`
+	Database     string `mapstructure:"database" yaml:"database" json:"database"`
+	Username     string `mapstructure:"username" yaml:"username" json:"username"`
+	Password     string `mapstructure:"password" yaml:"password" json:"password"`
+	Timeout      int    `mapstructure:"timeout" yaml:"timeout" json:"timeout"`
+	Params       string `mapstructure:"params" yaml:"params" json:"params"`
+	MaxOpenConns int    `mapstructure:"max-open-conns" yaml:"max-open-conns" json:"maxOpenConns"`
+	MaxIdleConns int    `mapstructure:"max-idle-conns" yaml:"max-idle-conns" json:"maxIdleConns"`
+	MaxIdleTime  int    `mapstructure:"max-idle-time" yaml:"max-idle-time" json:"maxIdleTime"`
 }
