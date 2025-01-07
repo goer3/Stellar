@@ -34,9 +34,9 @@ var startCmd = &cobra.Command{
 		systemStartTime := fmt.Sprintf("%d", time.Now().UnixNano()) // 系统启动时间
 		common.SystemNodeStartTime = trans.String(systemStartTime)  // 保存系统启动时间
 		initialize.Config()                                         // 配置文件初始化
-		initialize.NodeId()                                         // 生成节点唯一标识ID
 		initialize.SystemLogger()                                   // 系统日志初始化
 		initialize.AccessLogger()                                   // 访问日志初始化
+		initialize.NodeId()                                         // 生成节点唯一标识ID
 		initialize.MySQL()                                          // MySQL 初始化
 
 		// 打印节点配置启动信息
