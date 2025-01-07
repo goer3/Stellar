@@ -18,7 +18,7 @@ const generateMenuItem = (label, key, icon, children) => ({
 });
 
 // 传递 pathname 从 RuleRules 中获取父级菜单列表
-export const findMenuParentPathList = (pathname) => {
+const findMenuParentPathList = (pathname) => {
   if (!pathname) return [];
   const findPath = (items, targetPath, parentPath = []) => {
     for (const item of items) {
@@ -105,7 +105,6 @@ const AdminLayout = () => {
   // 监听 pathname 变化，更新菜单
   useEffect(() => {
     const keyList = findMenuParentPathList(pathname);
-    console.log(keyList);
     setSiderMenuOpenKeys(keyList);
     setSiderMenuSelectedKeys(pathname);
   }, [pathname]);
