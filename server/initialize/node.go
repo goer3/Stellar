@@ -35,5 +35,4 @@ func NodeId() {
 	// 拼接节点唯一标识ID
 	systemNodeId := fmt.Sprintf("%s-%s-%s-%s", common.SYSTEM_NAME, ipString, common.Config.System.Listen.Port, *common.SystemNodeStartTime)
 	common.SystemNodeId = trans.String(systemNodeId)
-	common.SystemLog.Info("节点唯一标识ID: " + *common.SystemNodeId)
 }

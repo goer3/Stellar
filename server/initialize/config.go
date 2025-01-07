@@ -23,12 +23,10 @@ func Config() {
 	if common.SystemConfigFilename != "" {
 		// 如果启动参数中有指定配置文件，则使用指定配置文件
 		filename := common.SystemConfigFilename
-		fmt.Println("开始加载指定配置文件：" + filename)
 		bs, err = os.ReadFile(filename)
 	} else {
 		// 否则使用默认配置文件，读取方式不一样
 		filename := common.SYSTEM_DEFAULT_CONFIG_FILENAME
-		fmt.Println("开始加载默认配置文件：" + filename)
 		bs, err = common.FS.ReadFile(filename)
 		// 设置配置文件，方便后面使用
 		common.SystemConfigFilename = filename

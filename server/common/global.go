@@ -3,6 +3,7 @@ package common
 import (
 	"embed"
 
+	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -14,6 +15,7 @@ var (
 	SystemLog *zap.SugaredLogger // 系统日志工具
 	AccessLog *zap.SugaredLogger // 访问日志工具
 	DB        *gorm.DB           // 数据库连接
+	Cache     *redis.Client      // Redis 连接
 )
 
 // 全局变量，根据实际运行情况进行初始化

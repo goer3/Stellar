@@ -37,9 +37,9 @@ var startCmd = &cobra.Command{
 		initialize.SystemLogger()                                   // 系统日志初始化
 		initialize.AccessLogger()                                   // 访问日志初始化
 		initialize.NodeId()                                         // 生成节点唯一标识ID
-		initialize.MySQL()                                          // MySQL 初始化
 
 		// 打印节点配置启动信息
+		fmt.Println("节点配置启动信息如下：")
 		tb := table.NewWriter()
 		header := table.Row{"配置项名称", "配置项值"}
 		tb.AppendHeader(header)
@@ -56,9 +56,15 @@ var startCmd = &cobra.Command{
 		rows = append(rows, table.Row{"节点角色 Leader Election", common.Config.System.Role.LeaderElection})
 		rows = append(rows, table.Row{"节点角色 Worker", common.Config.System.Role.Worker})
 		rows = append(rows, table.Row{"MySQL 连接地址", fmt.Sprintf("%s@%s:%d/%s", common.Config.MySQL.Username, common.Config.MySQL.Host, common.Config.MySQL.Port, common.Config.MySQL.Database)})
-
+		rows = append(rows, table.Row{"Redis 连接地址", fmt.Sprintf("%s:%d/%d", common.Config.Redis.Host, common.Config.Redis.Port, common.Config.Redis.Database)})
 		tb.AppendRows(rows)
 		fmt.Println(tb.Render())
+		fmt.Println()
+
+		// 连接初始化
+		common.SystemLog.Info("节点唯一标识ID: " + *common.SystemNodeId)
+		initialize.MySQL() // MySQL 初始化
+		initialize.Redis() // Redis 初始化
 
 		// 如果启动 Web 后端服务，则需要初始化路由
 		if common.Config.System.Role.WebServer {
@@ -89,7 +95,7 @@ var startCmd = &cobra.Command{
 			if err := server.Shutdown(ctx); err != nil {
 				panic("Web 后端服务关闭失败：" + err.Error())
 			}
-			fmt.Println("Web 后端服务关闭成功")
+			common.SystemLog.Info("Web 后端服务关闭成功")
 		} else {
 			select {} // 没有配置 Web 后端服务的时候需要一个保活进程
 		}
