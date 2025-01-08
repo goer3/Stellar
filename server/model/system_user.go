@@ -23,6 +23,7 @@ type SystemUser struct {
 	SystemRoleId         uint                `gorm:"comment:角色ID" json:"systemRoleId"`
 	SystemRole           *SystemRole         `gorm:"foreignKey:SystemRoleId;" json:"systemRole,omitempty"` // 指针类型解决 omitempty 为空问题
 	SystemJobPositions   []SystemJobPosition `gorm:"many2many:system_user_job_position_relation;" json:"systemJobPositions,omitempty"`
+	SystemDepartments    []SystemDepartment  `gorm:"many2many:system_user_department_relation;" json:"systemDepartments,omitempty"`
 }
 
 // 表名
