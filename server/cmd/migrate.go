@@ -11,6 +11,8 @@ func init() {
 	rootCmd.AddCommand(migrateCmd)
 	migrateCmd.AddCommand(migrateTableCmd)
 	migrateTableCmd.Flags().StringVarP(&common.SystemConfigFilename, "config", "", common.SYSTEM_DEFAULT_CONFIG_FILENAME, "指定服务运行配置文件")
+	migrateCmd.AddCommand(migrateTableDataCmd)
+	migrateTableDataCmd.Flags().StringVarP(&common.SystemConfigFilename, "config", "", common.SYSTEM_DEFAULT_CONFIG_FILENAME, "指定服务运行配置文件")
 }
 
 // 数据迁移
@@ -27,5 +29,16 @@ var migrateTableCmd = &cobra.Command{
 		initialize.Config()
 		initialize.MySQL()
 		initialize.MigrateTables()
+	},
+}
+
+// 数据表数据迁移
+var migrateTableDataCmd = &cobra.Command{
+	Use:   "data",
+	Short: "数据表数据迁移",
+	Run: func(cmd *cobra.Command, args []string) {
+		initialize.Config()
+		initialize.MySQL()
+		initialize.MigrateTablesData()
 	},
 }

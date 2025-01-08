@@ -43,6 +43,9 @@ const (
 	SYSTEM_DEVELOPER_NAME          = "DK"                                                         // 系统开发者名称
 	SYSTEM_DEVELOPER_EMAIL         = "ezops.cn@gmail.com"                                         // 系统开发者邮箱
 	SYSTEM_GITHUB_REPOSITORY       = "https://github.com/goer3/Stellar"                           // 系统 GitHub 仓库
+	SYSTEM_DEFAULT_PASSWORD        = "12345678"                                                   // 系统默认密码
+	SYSTEM_DEFAULT_AVATAR          = "/image/avatar/default.png"                                  // 系统默认头像
+	SYSTEM_DEFAULT_CREATOR         = "default,默认,Default,0"                                       // 系统默认创建者
 )
 
 // 格式常量

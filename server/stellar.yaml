@@ -16,9 +16,9 @@ system:
     # 是否是 WebServer 角色，服务启动时可以使用 --web-server 参数指定是否开启
     web-server: true
     # 是否允许竞选 Leader，服务启动时可以使用 --leader-election 参数指定是否开启
-    leader-election: true
+    leader-election: false
     # 是否允许成为 Worker，服务启动时可以使用 --worker 参数指定是否开启
-    worker: true
+    worker: false
 ####################################################################################
 # 日志配置
 ####################################################################################
