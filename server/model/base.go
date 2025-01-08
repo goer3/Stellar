@@ -11,8 +11,8 @@ import (
 // 3. carbon 可以根据不同的日期时间格式，解析字符串并转换为日期时间对象
 // 使用文档：https://juejin.cn/post/6925036967151288328
 type BaseModel struct {
-	Id        uint           `gorm:"column:id;primaryKey;comment:自增编号" json:"id"`
-	CreatedAt carbon.Carbon  `gorm:"column:createdAt;comment:创建时间" json:"createdAt"`
-	UpdatedAt carbon.Carbon  `gorm:"column:updatedAt;comment:更新时间" json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `gorm:"column:deletedAt;comment:删除时间" json:"deletedAt"` // Delete 字段不关注，所以不需要调整
+	Id        uint           `gorm:"primaryKey;comment:自增编号" json:"id"`
+	CreatedAt carbon.Carbon  `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
+	UpdatedAt carbon.Carbon  `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"` // Delete 字段不关注，所以不需要调整
 }

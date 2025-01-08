@@ -39,5 +39,4 @@ func Redis() {
 
 	// 配置全局，方便后续使用
 	common.Cache = client
-	common.SystemLog.Info("Redis 连接成功：" + fmt.Sprintf("%s:%d/%d", common.Config.Redis.Host, common.Config.Redis.Port, common.Config.Redis.Database))
 }
