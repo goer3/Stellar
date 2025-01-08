@@ -13,7 +13,7 @@ system:
   # 2. leader-election：允许竞选 Leader，Leader 节点负责同步任务到任务通道，如果没有 Leader，则没有任务提供给 Worker 节点执行
   # 3. worker：允许成为 Worker，Worker 节点负责执行任务通道中的任务
   role:
-    # 是否是 Web 后端服务角色，服务启动时可以使用 --web-server 参数指定是否开启
+    # 是否是 WebServer 角色，服务启动时可以使用 --web-server 参数指定是否开启
     web-server: true
     # 是否允许竞选 Leader，服务启动时可以使用 --leader-election 参数指定是否开启
     leader-election: true

@@ -9,6 +9,7 @@ import (
 	"stellar/common"
 	"stellar/initialize"
 	"stellar/pkg/trans"
+	"stellar/task"
 	"time"
 
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -66,8 +67,24 @@ var startCmd = &cobra.Command{
 		initialize.MySQL() // MySQL 初始化
 		initialize.Redis() // Redis 初始化
 
-		// 如果启动 Web 后端服务，则需要初始化路由
+		// 启动心跳上报任务
+		go task.HeartbeatReport()
+
+		// Worker 节点注册
+		if common.Config.System.Role.Worker {
+			go task.RegisterWorker()
+		}
+
+		// Leader 节点选举
+		if common.Config.System.Role.LeaderElection {
+			go task.ElectionLeader()
+		}
+
+		// 如果启动 WebServer 角色，则需要初始化路由
 		if common.Config.System.Role.WebServer {
+			// 注册 WebServer 角色
+			go task.RegisterWebServer()
+
 			// 初始化路由
 			r := initialize.Router()
 
@@ -77,27 +94,27 @@ var startCmd = &cobra.Command{
 				Handler: r,
 			}
 
-			// 启动 Web 后端服务
+			// 启动 WebServer 服务
 			go func() {
 				if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-					panic("Web 后端服务启动失败：" + err.Error())
+					panic("WebServer 服务启动失败：" + err.Error())
 				}
 			}()
 
-			// 监听信号，用于关闭 Web 后端服务
+			// 监听信号，用于关闭 WebServer 服务
 			quit := make(chan os.Signal, 1)
 			signal.Notify(quit, os.Interrupt)
 			<-quit
 
-			// 接收到关闭信号后，优雅关闭 Web 后端服务
+			// 接收到关闭信号后，优雅关闭 WebServer 服务
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
 			if err := server.Shutdown(ctx); err != nil {
-				panic("Web 后端服务关闭失败：" + err.Error())
+				panic("WebServer 服务关闭失败：" + err.Error())
 			}
-			common.SystemLog.Info("Web 后端服务关闭成功")
+			common.SystemLog.Info("WebServer 服务关闭成功")
 		} else {
-			select {} // 没有配置 Web 后端服务的时候需要一个保活进程
+			select {} // 没有配置 WebServer 角色的时候需要一个保活进程
 		}
 	},
 }
