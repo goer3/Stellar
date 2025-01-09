@@ -8,6 +8,7 @@ import (
 
 // 开放路由
 func Public(rg *gin.RouterGroup) gin.IRoutes {
-	rg.GET("/health", v1.HealthHandler) // 健康检查
+	rg.GET("/health", v1.HealthHandler)   // 健康检查
+	rg.GET("/info", v1.SystemInfoHandler) // 系统信息
 	return rg
 }

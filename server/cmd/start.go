@@ -51,6 +51,7 @@ var startCmd = &cobra.Command{
 		rows = append(rows, table.Row{"系统 Go 版本", common.SYSTEM_GO_VERSION})
 		rows = append(rows, table.Row{"系统版本", common.SystemVersion})
 		rows = append(rows, table.Row{"开发者信息", common.SYSTEM_DEVELOPER_NAME + " <" + common.SYSTEM_DEVELOPER_EMAIL + ">"})
+		rows = append(rows, table.Row{"项目地址", common.SYSTEM_GITHUB_REPOSITORY})
 		rows = append(rows, table.Row{"配置文件", common.SystemConfigFilename})
 		rows = append(rows, table.Row{"监听地址", common.Config.System.Listen.Host + ":" + common.Config.System.Listen.Port})
 		rows = append(rows, table.Row{"节点角色 Web Server", common.Config.System.Role.WebServer})

@@ -25,5 +25,8 @@ func MigrateTables() {
 func MigrateTablesData() {
 	fmt.Println(time.Now().Format(common.TIME_FORMAT_MILLISECOND), "\t开始进行数据表数据迁移")
 	data.MigrateSystemUserData()
+	data.MigrateSystemRoleData()
+	data.MigrateSystemJobPositionData()
+	data.MigrateSystemDepartmentData()
 	fmt.Println(time.Now().Format(common.TIME_FORMAT_MILLISECOND), "\t数据表数据迁移完成")
 }

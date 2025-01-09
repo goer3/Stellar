@@ -9,11 +9,11 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(informationCmd)
+	rootCmd.AddCommand(infoCmd)
 }
 
 // 系统信息
-var informationCmd = &cobra.Command{
+var infoCmd = &cobra.Command{
 	Use:   "info",
 	Short: "打印系统信息",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -26,6 +26,7 @@ var informationCmd = &cobra.Command{
 		rows = append(rows, table.Row{"系统 Go 版本", common.SYSTEM_GO_VERSION})
 		rows = append(rows, table.Row{"系统版本", common.SystemVersion})
 		rows = append(rows, table.Row{"开发者信息", common.SYSTEM_DEVELOPER_NAME + " <" + common.SYSTEM_DEVELOPER_EMAIL + ">"})
+		rows = append(rows, table.Row{"项目地址", common.SYSTEM_GITHUB_REPOSITORY})
 		tb.AppendRows(rows)
 		fmt.Println(tb.Render())
 	},
