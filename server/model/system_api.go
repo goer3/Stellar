@@ -8,6 +8,7 @@ type SystemApi struct {
 	Path                string             `gorm:"uniqueIndex:uidx_name_method_path;comment:请求路径" json:"path"`
 	Description         string             `gorm:"comment:接口描述" json:"description"`
 	Permission          *uint              `gorm:"default:1;comment:权限标识，0：无需权限，1：需要权限" json:"permission"`
+	Creator             string             `gorm:"not null;comment:创建人，格式：username,cnName,enName,id" json:"creator"`
 	SystemApiCategoryId uint               `gorm:"comment:接口分类ID" json:"systemApiCategoryId"`
 	SystemApiCategory   *SystemApiCategory `gorm:"foreignKey:SystemApiCategoryId;" json:"systemApiCategory,omitempty"`
 	SystemRoles         []SystemRole       `gorm:"many2many:system_role_api_relation;" json:"systemRoles,omitempty"`
