@@ -29,5 +29,7 @@ func MigrateTablesData() {
 	data.MigrateSystemJobPositionData()
 	data.MigrateSystemDepartmentData()
 	data.MigrateSystemMenuData()
+	data.MigrateSystemApiCategoryData()
+	data.MigrateSystemApiData()
 	fmt.Println(time.Now().Format(common.TIME_FORMAT_MILLISECOND), "\t数据表数据迁移完成")
 }
