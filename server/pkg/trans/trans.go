@@ -1,6 +1,6 @@
 package trans
 
-// 方法来自阿里云 SDK，主要用于获取各种类型的指针数据
+// 方法来自阿里云 SDK，主要用于获取各种类型的指针和指针获取对应的值
 func String(a string) *string {
 	return &a
 }

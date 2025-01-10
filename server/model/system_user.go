@@ -12,7 +12,7 @@ type SystemUser struct {
 	Password             string              `gorm:"not null;comment:密码" json:"password"`
 	Email                string              `gorm:"uniqueIndex:idx_email;comment:邮箱" json:"email"`
 	Phone                string              `gorm:"uniqueIndex:idx_phone;comment:手机号" json:"phone"`
-	HidePhone            *uint               `gorm:"default:0;comment:是否隐藏手机号，0：不隐藏，1：隐藏" json:"hidePhone"`
+	HidePhone            *uint               `gorm:"default:0;comment:是否隐藏手机号，0：否，1：是" json:"hidePhone"`
 	Gender               *uint               `gorm:"default:0;comment:性别，0：未知，1：男，2：女" json:"gender"`
 	Avatar               string              `gorm:"not null;comment:头像" json:"avatar"`
 	LastLoginIP          string              `gorm:"comment:最后登录IP" json:"lastLoginIP"`
