@@ -25,16 +25,16 @@ var systemRoles = []model.SystemRole{
 	},
 	{
 		BaseModel:   model.BaseModel{Id: 3},
-		Name:        "运维",
-		Keyword:     "DevOps",
-		Description: "系统初始化角色，拥有系统基础的运维权限，管理员及以上的角色可对其权限进行调整",
+		Name:        "读写",
+		Keyword:     "ReadWrite",
+		Description: "系统预设的读写权限角色，拥有系统基础的读写权限，权限预设且无法调整",
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 	},
 	{
 		BaseModel:   model.BaseModel{Id: 4},
-		Name:        "访客",
-		Keyword:     "Guest",
-		Description: "系统初始化角色，拥有系统的只读权限，只能查看系统的基础信息，无法进行任何修改操作",
+		Name:        "只读",
+		Keyword:     "ReadOnly",
+		Description: "系统预设的只读权限角色，拥有系统的最低权限，只能查看系统的基础信息，权限预设且无法调整",
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 	},
 }
