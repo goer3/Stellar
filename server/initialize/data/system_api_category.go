@@ -9,16 +9,22 @@ import (
 
 // 定义好API分类的ID，方便后续改动
 var (
-	systemJobPositionApiCategoryId uint = 1
-	systemDepartmentApiCategoryId  uint = 2
-	systemUserApiCategoryId        uint = 3
-	systemRoleApiCategoryId        uint = 4
-	systemMenuApiCategoryId        uint = 5
-	systemPermissionApiCategoryId  uint = 6
+	systemPublicApiCategoryId      uint = 1
+	systemJobPositionApiCategoryId uint = 2
+	systemDepartmentApiCategoryId  uint = 3
+	systemUserApiCategoryId        uint = 4
+	systemRoleApiCategoryId        uint = 5
+	systemMenuApiCategoryId        uint = 6
+	systemPermissionApiCategoryId  uint = 7
 )
 
 // 系统API分类数据
 var systemApiCategories = []model.SystemApiCategory{
+	{
+		BaseModel: model.BaseModel{Id: systemPublicApiCategoryId},
+		Name:      "公共接口",
+		Creator:   common.SYSTEM_DEFAULT_CREATOR,
+	},
 	{
 		BaseModel: model.BaseModel{Id: systemJobPositionApiCategoryId},
 		Name:      "职位接口",

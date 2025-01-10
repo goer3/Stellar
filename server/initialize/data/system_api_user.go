@@ -7,7 +7,7 @@ import (
 )
 
 // 系统用户API
-var systemUserApiStartId = systemUserApiCategoryId * 100
+var systemUserApiStartId = (systemUserApiCategoryId - 1) * 100
 var systemUserApis = []model.SystemApi{
 	{
 		BaseModel:           model.BaseModel{Id: systemUserApiStartId + 1},

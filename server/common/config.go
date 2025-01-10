@@ -1,11 +1,12 @@
 package common
 
-// 配置
+// 配置解析入口
 type Configuration struct {
 	System SystemConfiguration `mapstructure:"system" yaml:"system" json:"system"`
 	Log    LogConfiguration    `mapstructure:"log" yaml:"log" json:"log"`
 	MySQL  MySQLConfiguration  `mapstructure:"mysql" yaml:"mysql" json:"mysql"`
 	Redis  RedisConfiguration  `mapstructure:"redis" yaml:"redis" json:"redis"`
+	Auth   AuthConfiguration   `mapstructure:"auth" yaml:"auth" json:"auth"`
 }
 
 // 系统配置
@@ -76,4 +77,24 @@ type RedisConfiguration struct {
 	MinIdleConns int    `mapstructure:"min-idle-conns" yaml:"min-idle-conns" json:"minIdleConns"`
 	MaxIdleConns int    `mapstructure:"max-idle-conns" yaml:"max-idle-conns" json:"maxIdleConns"`
 	MaxIdleTime  int    `mapstructure:"max-idle-time" yaml:"max-idle-time" json:"maxIdleTime"`
+}
+
+// 用户登录相关配置
+type AuthConfiguration struct {
+	JWT   JWTConfiguration   `mapstructure:"jwt" yaml:"jwt" json:"jwt"`
+	Login LoginConfiguration `mapstructure:"login" yaml:"login" json:"login"`
+}
+
+// JWT 配置
+type JWTConfiguration struct {
+	Realm   string `mapstructure:"realm" yaml:"realm" json:"realm"`
+	Key     string `mapstructure:"key" yaml:"key" json:"key"`
+	Timeout int    `mapstructure:"timeout" yaml:"timeout" json:"timeout"`
+}
+
+// 登录配置
+type LoginConfiguration struct {
+	ErrorLimit    int  `mapstructure:"error-limit" yaml:"error-limit" json:"errorLimit"`
+	ErrorLockTime int  `mapstructure:"error-lock-time" yaml:"error-lock-time" json:"errorLockTime"`
+	MultiDevice   bool `mapstructure:"multi-device" yaml:"multi-device" json:"multiDevice"`
 }
