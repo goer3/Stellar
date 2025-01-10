@@ -6,8 +6,10 @@ import (
 	"stellar/pkg/trans"
 )
 
-// 系统用户API
+// 系统用户API起始ID
 var systemUserApiStartId = (systemUserApiCategoryId - 1) * 100
+
+// 系统用户API
 var systemUserApis = []model.SystemApi{
 	{
 		BaseModel:           model.BaseModel{Id: systemUserApiStartId + 1},

@@ -6,11 +6,13 @@ import (
 	"stellar/pkg/trans"
 )
 
-// 系统API公共数据
-var systemPublicApiStartId = systemPublicApiCategoryId
-var systemPublicApis = []model.SystemApi{
+// 系统公共API起始ID
+var publicApiStartId = publicApiCategoryId
+
+// 系统公共API
+var publicApis = []model.SystemApi{
 	{
-		BaseModel:           model.BaseModel{Id: systemPublicApiStartId},
+		BaseModel:           model.BaseModel{Id: publicApiStartId},
 		Name:                "健康检查",
 		Method:              "GET",
 		Path:                "/health",
@@ -18,10 +20,10 @@ var systemPublicApis = []model.SystemApi{
 		Permission:          trans.Uint(common.BOOLEAN_FALSE),
 		Disabled:            trans.Uint(common.BOOLEAN_FALSE),
 		Creator:             common.SYSTEM_DEFAULT_CREATOR,
-		SystemApiCategoryId: systemPublicApiCategoryId,
+		SystemApiCategoryId: publicApiCategoryId,
 	},
 	{
-		BaseModel:           model.BaseModel{Id: systemPublicApiStartId + 1},
+		BaseModel:           model.BaseModel{Id: publicApiStartId + 1},
 		Name:                "获取系统信息",
 		Method:              "GET",
 		Path:                "/info",
@@ -29,6 +31,6 @@ var systemPublicApis = []model.SystemApi{
 		Permission:          trans.Uint(common.BOOLEAN_FALSE),
 		Disabled:            trans.Uint(common.BOOLEAN_FALSE),
 		Creator:             common.SYSTEM_DEFAULT_CREATOR,
-		SystemApiCategoryId: systemPublicApiCategoryId,
+		SystemApiCategoryId: publicApiCategoryId,
 	},
 }

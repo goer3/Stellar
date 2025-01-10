@@ -9,7 +9,7 @@ import (
 
 // 定义好API分类的ID，方便后续改动
 var (
-	systemPublicApiCategoryId      uint = 1
+	publicApiCategoryId            uint = 1
 	systemJobPositionApiCategoryId uint = 2
 	systemDepartmentApiCategoryId  uint = 3
 	systemUserApiCategoryId        uint = 4
@@ -21,7 +21,7 @@ var (
 // 系统API分类数据
 var systemApiCategories = []model.SystemApiCategory{
 	{
-		BaseModel: model.BaseModel{Id: systemPublicApiCategoryId},
+		BaseModel: model.BaseModel{Id: publicApiCategoryId},
 		Name:      "公共接口",
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 	},
