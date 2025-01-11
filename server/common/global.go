@@ -36,18 +36,18 @@ var (
 
 // 全局固定配置
 const (
-	SYSTEM_NAME                    string = "Stellar"                                                    // 系统名称
-	SYSTEM_DESCRIPTION             string = "Stellar 是一个集成了系统监控和业务监控，支持多数据源、多告警源、多告警通知方式、多告警处理方式的运维监控系统" // 系统描述
-	SYSTEM_DEFAULT_CONFIG_FILENAME string = "stellar.yaml"                                               // 默认配置文件
-	SYSTEM_DEFAULT_CONFIG_FILETYPE string = "yaml"                                                       // 默认配置文件类型
-	SYSTEM_GO_VERSION              string = "1.23.0"                                                     // 系统 Go 版本
-	SYSTEM_API_PREFIX              string = "/api/v1"                                                    // 系统 API 前缀
-	SYSTEM_DEVELOPER_NAME          string = "DK"                                                         // 系统开发者名称
-	SYSTEM_DEVELOPER_EMAIL         string = "ezops.cn@gmail.com"                                         // 系统开发者邮箱
-	SYSTEM_GITHUB_REPOSITORY       string = "https://github.com/goer3/Stellar"                           // 系统 GitHub 仓库
-	SYSTEM_DEFAULT_PASSWORD        string = "12345678"                                                   // 系统默认密码
-	SYSTEM_DEFAULT_AVATAR          string = "/image/avatar/default.png"                                  // 系统默认头像
-	SYSTEM_DEFAULT_CREATOR         string = "default,默认,Default,0"                                       // 系统默认创建者
+	SYSTEM_NAME                    string = "Stellar"                                      // 系统名称
+	SYSTEM_DESCRIPTION             string = "Stellar 是一个集成了系统和业务监控，支持多数据源、告警源、告警通道的运维监控系统" // 系统描述
+	SYSTEM_DEFAULT_CONFIG_FILENAME string = "stellar.yaml"                                 // 默认配置文件
+	SYSTEM_DEFAULT_CONFIG_FILETYPE string = "yaml"                                         // 默认配置文件类型
+	SYSTEM_GO_VERSION              string = "1.23.0"                                       // 系统 Go 版本
+	SYSTEM_API_PREFIX              string = "/api/v1"                                      // 系统 API 前缀
+	SYSTEM_DEVELOPER_NAME          string = "DK"                                           // 系统开发者名称
+	SYSTEM_DEVELOPER_EMAIL         string = "ezops.cn@gmail.com"                           // 系统开发者邮箱
+	SYSTEM_GITHUB_REPOSITORY       string = "https://github.com/goer3/Stellar"             // 系统 GitHub 仓库
+	SYSTEM_DEFAULT_PASSWORD        string = "12345678"                                     // 系统默认密码
+	SYSTEM_DEFAULT_AVATAR          string = "/image/avatar/default.png"                    // 系统默认头像
+	SYSTEM_DEFAULT_CREATOR         string = "default,默认,Default,0"                         // 系统默认创建者
 )
 
 // 格式常量

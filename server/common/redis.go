@@ -14,11 +14,11 @@ const (
 
 // Redis 键前缀，需要拼接
 const (
-	RKP_HEARTBEAT         = "Heartbeat"       // 心跳上报
-	RKP_WORKER            = "Worker"          // 工作节点
-	RKP_WEB_SERVER        = "WebServer"       // Web 后端服务
-	RKP_LOGIN_TOKEN       = "LoginToken"      // 登录 Token
-	RKP_LOGIN_ERROR_TIMES = "LoginErrorTimes" // 登录错误次数
+	RKP_HEARTBEAT         = "Heartbeat"       // 心跳上报，格式：Heartbeat:ClientId
+	RKP_WORKER            = "Worker"          // 工作节点，格式：Worker:ClientId
+	RKP_WEB_SERVER        = "WebServer"       // Web 后端服务，格式：WebServer:ClientId
+	RKP_LOGIN_TOKEN       = "LoginToken"      // 登录 Token，格式：LoginToken:Username
+	RKP_LOGIN_ERROR_TIMES = "LoginErrorTimes" // 登录错误次数，格式：LoginErrorTimes:Account:IP
 )
 
 // Redis 键过期时间
