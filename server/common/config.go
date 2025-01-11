@@ -11,6 +11,7 @@ type Configuration struct {
 
 // 系统配置
 type SystemConfiguration struct {
+	Mode   string              `mapstructure:"mode" yaml:"mode" json:"mode"`
 	Listen ListenConfiguration `mapstructure:"listen" yaml:"listen" json:"listen"`
 	Role   RoleConfiguration   `mapstructure:"role" yaml:"role" json:"role"`
 }
@@ -94,7 +95,7 @@ type JWTConfiguration struct {
 
 // 登录配置
 type LoginConfiguration struct {
-	ErrorLimit    int  `mapstructure:"error-limit" yaml:"error-limit" json:"errorLimit"`
-	ErrorLockTime int  `mapstructure:"error-lock-time" yaml:"error-lock-time" json:"errorLockTime"`
-	MultiDevice   bool `mapstructure:"multi-device" yaml:"multi-device" json:"multiDevice"`
+	ErrorTimesLimit int  `mapstructure:"error-times-limit" yaml:"error-times-limit" json:"errorTimesLimit"`
+	ErrorLockTime   int  `mapstructure:"error-lock-time" yaml:"error-lock-time" json:"errorLockTime"`
+	MultiDevices    bool `mapstructure:"multi-devices" yaml:"multi-devices" json:"multiDevices"`
 }

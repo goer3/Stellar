@@ -2,6 +2,8 @@
 # 系统配置
 ####################################################################################
 system:
+  # 运行模式，支持 debug、release，建议开发时使用 debug，生产时使用 release
+  mode: debug
   # 监听配置
   listen:
     # 监听地址，服务绑定 IP 地址，服务启动时可以使用 --host 参数覆盖该值
@@ -127,8 +129,8 @@ auth:
   # 登录相关配置
   login:
     # 登录错误次数上限
-    error-limit: 5
+    error-times-limit: 5
     # 登录错误次数超限后，锁定时间，单位秒，默认 5 分钟
     error-lock-time: 300
     # 是否允许多设备同时登录
-    multi-device: false
+    multi-devices: false
