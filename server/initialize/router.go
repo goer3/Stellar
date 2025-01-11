@@ -31,6 +31,7 @@ func Router() *gin.Engine {
 	{
 		// 开放路由，需要认证，但是不需要授权的路由
 		publicAuthRouterGroup := r.Group(common.SYSTEM_API_PREFIX)
+		publicAuthRouterGroup.Use(auth.MiddlewareFunc())
 		router.PublicAuth(publicAuthRouterGroup, auth)
 	}
 	return r

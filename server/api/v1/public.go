@@ -13,7 +13,7 @@ func HealthHandler(ctx *gin.Context) {
 }
 
 // 系统信息接口
-func SystemInfoHandler(ctx *gin.Context) {
+func InformationHandler(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"systemName":             common.SYSTEM_NAME,
 		"systemDescription":      common.SYSTEM_DESCRIPTION,
