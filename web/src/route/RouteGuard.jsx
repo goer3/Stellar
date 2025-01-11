@@ -57,7 +57,8 @@ const RouteGuard = ({ children }) => {
           ClearLocalStorageAndNavigateToLoginPath();
         } else {
           // 1.2 如果本地记录的 Token 没过期，则需要校验 Token 在后端缓存中是否过期
-          APIGET(BackendAPIPrefix + BackendAPISuffix.PublicAuth.TokenVerification).then((res) => {
+          const tokenVerificationAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.TokenVerification.Path;
+          APIGET(tokenVerificationAPI).then((res) => {
             if (res.code !== 200) {
               // 1.2.1 如果 Token 过期，则返回登录页面
               message.error('Token过期，请重新登录');

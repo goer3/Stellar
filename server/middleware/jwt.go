@@ -55,10 +55,7 @@ func authenticator(ctx *gin.Context) (interface{}, error) {
 	loginErrorTimesKey := fmt.Sprintf("%s%s%s%s%s", common.RKP_LOGIN_ERROR_TIMES, common.RK_SEPARATOR, req.Account, common.RK_SEPARATOR, ip)
 
 	// 获取登录错误次数
-	loginErrorTimes, err := common.Cache.Get(context.Background(), loginErrorTimesKey).Int()
-	if err != nil {
-		return nil, errors.New("用户登录错误次数获取失败")
-	}
+	loginErrorTimes, _ := common.Cache.Get(context.Background(), loginErrorTimesKey).Int()
 
 	// 判断登录错误次数是否达到上限
 	if loginErrorTimes >= common.Config.Auth.Login.ErrorTimesLimit {
@@ -86,7 +83,7 @@ func authenticator(ctx *gin.Context) (interface{}, error) {
 	}
 
 	// 4.2 查询用户
-	if err := query.First(&systemUser).Error; err != nil {
+	if err := query.Preload("SystemRole").First(&systemUser).Error; err != nil {
 		common.Cache.Set(context.Background(), loginErrorTimesKey, loginErrorTimes+1,
 			time.Duration(common.Config.Auth.Login.ErrorLockTime)*time.Second)
 		return nil, errors.New("用户名或密码错误")
