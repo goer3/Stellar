@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { App } from 'antd';
-import { ApiGET } from '@/handler/Request.jsx';
+import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 import { VerifyLocalTokenExpireTime, GetLocalToken, SetLocalTokenAndExpireTime, ClearLocalTokenAndExpireTime } from '@/handler/Token.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
@@ -63,7 +63,7 @@ const RouteGuard = ({ children }) => {
           } else {
             // 1.2.2 本地 Token 没过期，则需要校验 Token 在后端缓存中是否过期
             const tokenVerificationApi = BackendApiPrefix + BackendApiSuffix.Public.Auth.TokenVerification.Path;
-            ApiGET(tokenVerificationApi).then((res) => {
+            AxiosGET(tokenVerificationApi).then((res) => {
               if (res.code !== 200) {
                 // 1.2.2.1 Token 失效，则返回登录页面
                 message.error('Token已失效，请重新登录');

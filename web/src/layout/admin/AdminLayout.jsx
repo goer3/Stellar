@@ -8,7 +8,7 @@ import { FooterDescriptionComponent } from '@/common/Text.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
 import { jwtDecode } from 'jwt-decode';
 import { GetLocalToken } from '@/handler/Token.jsx';
-import { ApiGET } from '@/handler/Request.jsx';
+import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 
 const { Header, Content, Sider } = Layout;
@@ -142,7 +142,7 @@ const AdminLayout = () => {
   const logoutHandler = async () => {
     const logoutApi = BackendApiPrefix + BackendApiSuffix.Public.Auth.Logout.Path;
     try {
-      const res = await ApiGET(logoutApi);
+      const res = await AxiosGET(logoutApi);
       if (res.code === 200) {
         message.success('注销成功');
         localStorage.clear();

@@ -28,18 +28,18 @@ instance.interceptors.response.use(
 );
 
 // GET 请求
-const ApiGET = (url, data) => instance.get(url, { params: data }).then((res) => res.data);
+const AxiosGET = (url, data) => instance.get(url, { params: data }).then((res) => res.data);
 
 // POST 请求
-const ApiPOST = (url, data) => instance.post(url, data).then((res) => res.data);
+const AxiosPOST = (url, data) => instance.post(url, data).then((res) => res.data);
 
 // PUT 请求
-const ApiPUT = (url, data) => instance.put(url, data).then((res) => res.data);
+const AxiosPUT = (url, data) => instance.put(url, data).then((res) => res.data);
 
 // PATCH 请求
-const ApiPATCH = (url, data) => instance.patch(url, data).then((res) => res.data);
+const AxiosPATCH = (url, data) => instance.patch(url, data).then((res) => res.data);
 
 // DELETE 请求
-const ApiDELETE = (url) => instance.delete(url).then((res) => res.data);
+const AxiosDELETE = (url) => instance.delete(url).then((res) => res.data);
 
-export { ApiGET, ApiPOST, ApiPUT, ApiPATCH, ApiDELETE };
+export { AxiosGET, AxiosPOST, AxiosPUT, AxiosPATCH, AxiosDELETE };
