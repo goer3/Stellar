@@ -8,8 +8,8 @@ import { FooterDescriptionComponent } from '@/common/Text.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
 import { jwtDecode } from 'jwt-decode';
 import { GetLocalToken } from '@/handler/Token.jsx';
-import { APIGET } from '@/handler/Request.jsx';
-import { BackendAPIPrefix, BackendAPISuffix } from '@/common/Api.jsx';
+import { ApiGET } from '@/handler/Request.jsx';
+import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 
 const { Header, Content, Sider } = Layout;
 
@@ -140,9 +140,9 @@ const AdminLayout = () => {
 
   // 用户注销，清理 Redis 缓存数据，清空本地 localStorage 数据，并跳转到登录页面
   const logoutHandler = async () => {
-    const logoutAPI = BackendAPIPrefix + BackendAPISuffix.Public.Auth.Logout.Path;
+    const logoutApi = BackendApiPrefix + BackendApiSuffix.Public.Auth.Logout.Path;
     try {
-      const res = await APIGET(logoutAPI);
+      const res = await ApiGET(logoutApi);
       if (res.code === 200) {
         message.success('注销成功');
         localStorage.clear();
@@ -175,7 +175,7 @@ const AdminLayout = () => {
   // 获取用户授权接口列表
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 用户授权接口列表
-  const [systemUserAPIList, setSystemUserAPIList] = useState([]);
+  const [systemUserApiList, setSystemUserApiList] = useState([]);
 
 
   return (

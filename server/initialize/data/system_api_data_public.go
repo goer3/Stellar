@@ -6,10 +6,10 @@ import (
 	"stellar/pkg/trans"
 )
 
-// 系统公共API起始ID
+// 系统公共Api起始ID
 var publicApiStartId = publicApiCategoryId
 
-// 系统公共API
+// 系统公共Api
 var publicApis = []model.SystemApi{
 	{
 		BaseModel:           model.BaseModel{Id: publicApiStartId},

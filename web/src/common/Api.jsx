@@ -1,14 +1,14 @@
 // 后端地址
 const BackendURL = window.CONFIG.backendUrl;
 
-// 后端 API 版本前缀
-const BackendAPIURIPrefix = '/api/v1';
+// 后端 Api 版本前缀
+const BackendApiURIPrefix = '/api/v1';
 
-// 后端 API 前缀
-const BackendAPIPrefix = BackendURL + BackendAPIURIPrefix;
+// 后端 Api 前缀
+const BackendApiPrefix = BackendURL + BackendApiURIPrefix;
 
-// 后端 API 后缀
-const BackendAPISuffix = {
+// 后端 Api 后缀
+const BackendApiSuffix = {
   Public: {
     Common: {
       Health: { Path: '/health', Method: 'GET', Description: '健康检查，用于检查服务是否正常' },
@@ -31,7 +31,7 @@ const BackendAPISuffix = {
     },
     User: {
       Auth: {
-        APIList: { Path: '/user/api-list', Method: 'GET', Description: '获取用户授权接口列表，用于获取用户授权接口列表' }
+        ApiList: { Path: '/user/api-list', Method: 'GET', Description: '获取用户授权接口列表，用于获取用户授权接口列表' }
       },
       AuthAndPermission: {}
     },
@@ -43,7 +43,7 @@ const BackendAPISuffix = {
       Auth: {},
       AuthAndPermission: {}
     },
-    API: {
+    Api: {
       Auth: {},
       AuthAndPermission: {}
     },
@@ -54,4 +54,4 @@ const BackendAPISuffix = {
   }
 };
 
-export { BackendURL, BackendAPIURIPrefix, BackendAPIPrefix, BackendAPISuffix };
+export { BackendURL, BackendApiURIPrefix, BackendApiPrefix, BackendApiSuffix };

@@ -41,7 +41,7 @@ const (
 	SYSTEM_DEFAULT_CONFIG_FILENAME string = "stellar.yaml"                                 // 默认配置文件
 	SYSTEM_DEFAULT_CONFIG_FILETYPE string = "yaml"                                         // 默认配置文件类型
 	SYSTEM_GO_VERSION              string = "1.23.0"                                       // 系统 Go 版本
-	SYSTEM_API_PREFIX              string = "/api/v1"                                      // 系统 API 前缀
+	SYSTEM_API_PREFIX              string = "/api/v1"                                      // 系统 Api 前缀
 	SYSTEM_DEVELOPER_NAME          string = "DK"                                           // 系统开发者名称
 	SYSTEM_DEVELOPER_EMAIL         string = "ezops.cn@gmail.com"                           // 系统开发者邮箱
 	SYSTEM_GITHUB_REPOSITORY       string = "https://github.com/goer3/Stellar"             // 系统 GitHub 仓库

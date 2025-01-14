@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { App, Button, Checkbox, Divider, Form, Input } from 'antd';
 import { DingtalkOutlined, InsuranceOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { TitleSuffix } from '@/common/Text.jsx';
-import { BackendAPIPrefix, BackendAPISuffix } from '@/common/Api.jsx';
-import { APIPOST } from '@/handler/Request.jsx';
+import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
+import { ApiPOST } from '@/handler/Request.jsx';
 import { SetLocalTokenAndExpireTime } from '@/handler/Token.jsx';
 
 // 页面常量设置
@@ -24,8 +24,8 @@ const Login = () => {
   // 登录处理方法
   const loginHandler = async (data) => {
     try {
-      const loginAPI = BackendAPIPrefix + BackendAPISuffix.Public.Common.Login.Path;
-      const res = await APIPOST(loginAPI, data);
+      const loginApi = BackendApiPrefix + BackendApiSuffix.Public.Common.Login.Path;
+      const res = await ApiPOST(loginApi, data);
       if (res.code === 200) {
         message.success('登录成功');
         // 保存 Token 相关数据，然后跳转到主页

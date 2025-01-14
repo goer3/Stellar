@@ -9,7 +9,7 @@ import (
 
 // 系统用户登录路由
 func SystemUserAuth(rg *gin.RouterGroup, auth *jwt.GinJWTMiddleware) gin.IRoutes {
-	rg.GET("/api-list", v1.GetSystemUserAPIListHandler) // 获取系统用户授权接口列表
+	rg.GET("/api-list", v1.GetSystemUserApiListHandler) // 获取系统用户授权接口列表
 	return rg
 }
 

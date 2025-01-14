@@ -28,18 +28,18 @@ instance.interceptors.response.use(
 );
 
 // GET 请求
-const APIGET = (url, data) => instance.get(url, { params: data }).then((res) => res.data);
+const ApiGET = (url, data) => instance.get(url, { params: data }).then((res) => res.data);
 
 // POST 请求
-const APIPOST = (url, data) => instance.post(url, data).then((res) => res.data);
+const ApiPOST = (url, data) => instance.post(url, data).then((res) => res.data);
 
 // PUT 请求
-const APIPUT = (url, data) => instance.put(url, data).then((res) => res.data);
+const ApiPUT = (url, data) => instance.put(url, data).then((res) => res.data);
 
 // PATCH 请求
-const APIPATCH = (url, data) => instance.patch(url, data).then((res) => res.data);
+const ApiPATCH = (url, data) => instance.patch(url, data).then((res) => res.data);
 
 // DELETE 请求
-const APIDELETE = (url) => instance.delete(url).then((res) => res.data);
+const ApiDELETE = (url) => instance.delete(url).then((res) => res.data);
 
-export { APIGET, APIPOST, APIPUT, APIPATCH, APIDELETE };
+export { ApiGET, ApiPOST, ApiPUT, ApiPATCH, ApiDELETE };
