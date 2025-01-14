@@ -62,7 +62,7 @@ const RouteGuard = ({ children }) => {
             ClearLocalStorageAndNavigateToLoginPath();
           } else {
             // 1.2.2 本地 Token 没过期，则需要校验 Token 在后端缓存中是否过期
-            const tokenVerificationAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.TokenVerification.Path;
+            const tokenVerificationAPI = BackendAPIPrefix + BackendAPISuffix.Public.Auth.TokenVerification.Path;
             APIGET(tokenVerificationAPI).then((res) => {
               if (res.code !== 200) {
                 // 1.2.2.1 Token 失效，则返回登录页面

@@ -140,7 +140,7 @@ const AdminLayout = () => {
 
   // 用户注销，清理 Redis 缓存数据，清空本地 localStorage 数据，并跳转到登录页面
   const logoutHandler = async () => {
-    const logoutAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.Logout.Path;
+    const logoutAPI = BackendAPIPrefix + BackendAPISuffix.Public.Auth.Logout.Path;
     try {
       const res = await APIGET(logoutAPI);
       if (res.code === 200) {
@@ -170,6 +170,13 @@ const AdminLayout = () => {
     { type: 'divider' },
     { label: '注销登录', key: 'logout', onClick: logoutHandler }
   ];
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 获取用户授权接口列表
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 用户授权接口列表
+  const [systemUserAPIList, setSystemUserAPIList] = useState([]);
+
 
   return (
     <>

@@ -24,7 +24,7 @@ const Login = () => {
   // 登录处理方法
   const loginHandler = async (data) => {
     try {
-      const loginAPI = BackendAPIPrefix + BackendAPISuffix.Public.Login.Path;
+      const loginAPI = BackendAPIPrefix + BackendAPISuffix.Public.Common.Login.Path;
       const res = await APIPOST(loginAPI, data);
       if (res.code === 200) {
         message.success('登录成功');
