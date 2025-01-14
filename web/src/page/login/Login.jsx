@@ -25,7 +25,6 @@ const Login = () => {
   const loginHandler = async (data) => {
     try {
       const loginAPI = BackendAPIPrefix + BackendAPISuffix.Public.Login.Path;
-      console.log(loginAPI);
       const res = await APIPOST(loginAPI, data);
       if (res.code === 200) {
         message.success('登录成功');

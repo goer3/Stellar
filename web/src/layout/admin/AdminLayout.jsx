@@ -6,6 +6,10 @@ import { DynamicIcon } from '@/common/Icon.jsx';
 import { GenerateGenderBadge } from '@/common/Tag.jsx';
 import { FooterDescriptionComponent } from '@/common/Text.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
+import { jwtDecode } from 'jwt-decode';
+import { GetLocalToken } from '@/handler/Token.jsx';
+import { APIGET } from '@/handler/Request.jsx';
+import { BackendAPIPrefix, BackendAPISuffix } from '@/common/Api.jsx';
 
 const { Header, Content, Sider } = Layout;
 
@@ -131,17 +135,40 @@ const AdminLayout = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 顶部菜单栏
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 当前用户信息
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
+
   // 用户注销，清理 Redis 缓存数据，清空本地 localStorage 数据，并跳转到登录页面
   const logoutHandler = async () => {
-    console.log('注销');
+    const logoutAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.Logout.Path;
+    try {
+      const res = await APIGET(logoutAPI);
+      if (res.code === 200) {
+        message.success('注销成功');
+        localStorage.clear();
+        navigate('/login');
+      } else {
+        message.error(res.message);
+      }
+    } catch (error) {
+      message.error('系统异常，请稍后再试');
+    }
   };
+  
+  // 从 JWT Token 中解析出用户信息
+  useEffect(() => {
+    const token = GetLocalToken();
+    if (token) {
+      setCurrentUserInfo(jwtDecode(token));
+    }
+  }, []);
 
   // 顶部菜单栏下拉菜单，需要从 Token 中解析出用户相关信息
   const dropdownMenuItems = [
-    { label: `吴彦祖 / DK`, key: '0', disabled: true },
-    { label: <a target="_blank">修改资料</a>, key: '1', onClick: () => navigate('/me') },
+    { label: `${currentUserInfo?.cnName} / ${currentUserInfo?.enName}`, key: 'name', disabled: true },
+    { label: <a target="_blank">修改资料</a>, key: 'me', onClick: () => navigate('/me') },
     { type: 'divider' },
-    { label: '注销登录', key: '2', onClick: logoutHandler }
+    { label: '注销登录', key: 'logout', onClick: logoutHandler }
   ];
 
   return (
@@ -154,9 +181,9 @@ const AdminLayout = () => {
             </div>
           </div>
           <div className="admin-right">
-            <Badge count={GenerateGenderBadge(1)}>
+            <Badge count={GenerateGenderBadge(currentUserInfo?.gender)}>
               <Dropdown menu={{ items: dropdownMenuItems }}>
-                <Avatar shape="circle" size={30} src="/image/avatar/default.png" />
+                <Avatar shape="circle" size={30} src={currentUserInfo?.avatar} />
               </Dropdown>
             </Badge>
           </div>
