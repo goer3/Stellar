@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { App } from 'antd';
 import { APIGET } from '@/handler/Request.jsx';
-import { GetUnexpireToken } from '@/handler/Token.jsx';
 import { BackendAPIPrefix, BackendAPISuffix } from '@/common/Api.jsx';
+import { VerifyLocalTokenExpireTime, GetLocalToken, SetLocalTokenAndExpireTime, ClearLocalTokenAndExpireTime } from '@/handler/Token.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,25 +51,31 @@ const RouteGuard = ({ children }) => {
       // 如果路由存在，则需要多方面判断
       // 1. 如果路由需要登录
       if (route.auth) {
-        if (!GetUnexpireToken()) {
-          // 1.1 如果本地记录的 Token 为空或者已过期，则返回登录页面
-          message.error('Token已过期，请重新登录');
+        if (!GetLocalToken()) {
+          // 1.1 本地 Token 不存在，则返回登录页面
           ClearLocalStorageAndNavigateToLoginPath();
         } else {
-          // 1.2 如果本地记录的 Token 没过期，则需要校验 Token 在后端缓存中是否过期
-          const tokenVerificationAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.TokenVerification.Path;
-          APIGET(tokenVerificationAPI).then((res) => {
-            if (res.code !== 200) {
-              // 1.2.1 如果 Token 过期，则返回登录页面
-              message.error('Token过期，请重新登录');
-              ClearLocalStorageAndNavigateToLoginPath();
-            } else {
-              // 1.2.2 如果 Token 没过期，但是访问 /login 页面，则不允许访问，直接返回 /dashboard 页面
-              if (location.pathname === '/login') {
-                navigator('/dashboard');
+          // 1.2 本地 Token 存在
+          if (!VerifyLocalTokenExpireTime()) {
+            // 1.2.1 Token 已过期，则返回登录页面
+            message.error('Token已过期，请重新登录');
+            ClearLocalStorageAndNavigateToLoginPath();
+          } else {
+            // 1.2.2 本地 Token 没过期，则需要校验 Token 在后端缓存中是否过期
+            const tokenVerificationAPI = BackendAPIPrefix + BackendAPISuffix.PublicAuth.TokenVerification.Path;
+            APIGET(tokenVerificationAPI).then((res) => {
+              if (res.code !== 200) {
+                // 1.2.2.1 Token 失效，则返回登录页面
+                message.error('Token已失效，请重新登录');
+                ClearLocalStorageAndNavigateToLoginPath();
+              } else {
+                // 1.2.2.2 Token 没失效，但是访问 /login 页面，则不允许访问，直接返回 /dashboard 页面
+                if (location.pathname === '/login') {
+                  navigator('/dashboard');
+                }
               }
-            }
-          });
+            });
+          }
         }
       }
       // TODO: 验证路由是否在用户权限范围内，不再则返回 403 页面

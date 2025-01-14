@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GetUnexpireToken } from '@/handler/Token.jsx';
+import { GetLocalToken } from '@/handler/Token.jsx';
 
 // 创建 Axios 配置实例
 const instance = axios.create({
@@ -9,7 +9,7 @@ const instance = axios.create({
 // 请求拦截器，需要在请求头中添加 Token
 instance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = 'Bearer ' + GetUnexpireToken();
+    config.headers.Authorization = 'Bearer ' + GetLocalToken();
     return config;
   },
   (error) => {

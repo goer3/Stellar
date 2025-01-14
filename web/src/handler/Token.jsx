@@ -4,8 +4,8 @@ const TOKEN_KEY = 'token';
 // Token 过期时间
 const TOKEN_EXPIRE_TIME_KEY = 'tokenExpireTime';
 
-// 校验 Token 是否过期
-const TokenVerification = () => {
+// 本地校验 Token 是否过期
+const VerifyLocalTokenExpireTime = () => {
   const expireTime = localStorage.getItem(TOKEN_EXPIRE_TIME_KEY);
   if (!expireTime) {
     return false;
@@ -13,30 +13,25 @@ const TokenVerification = () => {
   return new Date().getTime() < Date.parse(expireTime);
 };
 
-// 获取未过期的 Token
-const GetUnexpireToken = () => {
-  if (TokenVerification()) {
-    const token = localStorage.getItem(TOKEN_KEY);
-    // 验证 Token 是否为空
-    if (token) {
-      return token;
-    }
+// 获取本地 Token
+const GetLocalToken = () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token) {
+    return token;
   }
-  // 清理 localStorage
-  localStorage.clear();
   return null;
 };
 
 // 设置 Token 和过期时间
-const SetTokenAndExpireTime = (token, expireTime) => {
+const SetLocalTokenAndExpireTime = (token, expireTime) => {
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(TOKEN_EXPIRE_TIME_KEY, expireTime);
 };
 
 // 清理 Token 和过期时间
-const ClearTokenAndExpireTime = () => {
+const ClearLocalTokenAndExpireTime = () => {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(TOKEN_EXPIRE_TIME_KEY);
 };
 
-export { TokenVerification, GetUnexpireToken, SetTokenAndExpireTime, ClearTokenAndExpireTime };
+export { VerifyLocalTokenExpireTime, GetLocalToken, SetLocalTokenAndExpireTime, ClearLocalTokenAndExpireTime };

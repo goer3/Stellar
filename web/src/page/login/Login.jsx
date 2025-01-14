@@ -6,7 +6,7 @@ import { DingtalkOutlined, InsuranceOutlined, LockOutlined, UserOutlined } from 
 import { TitleSuffix } from '@/common/Text.jsx';
 import { BackendAPIPrefix, BackendAPISuffix } from '@/common/Api.jsx';
 import { APIPOST } from '@/handler/Request.jsx';
-import { SetTokenAndExpireTime } from '@/handler/Token.jsx';
+import { SetLocalTokenAndExpireTime } from '@/handler/Token.jsx';
 
 // 页面常量设置
 const PageConfig = {
@@ -30,7 +30,7 @@ const Login = () => {
       if (res.code === 200) {
         message.success('登录成功');
         // 保存 Token 相关数据，然后跳转到主页
-        SetTokenAndExpireTime(res.data.token, res.data.expireTime);
+        SetLocalTokenAndExpireTime(res.data.token, res.data.expireTime);
         navigate('/dashboard');
       } else {
         message.error(res.message);

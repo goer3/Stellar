@@ -3,6 +3,7 @@ module stellar
 go 1.23.0
 
 require (
+	github.com/appleboy/gin-jwt/v2 v2.10.1
 	github.com/dromara/carbon/v2 v2.5.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/jedib0t/go-pretty/v6 v6.6.5
@@ -18,12 +19,10 @@ require (
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
-	github.com/appleboy/gin-jwt/v2 v2.10.1 // indirect
 	github.com/bytedance/sonic v1.12.7 // indirect
 	github.com/bytedance/sonic/loader v0.2.2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
-	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
