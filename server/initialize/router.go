@@ -38,16 +38,16 @@ func Router() *gin.Engine {
 		// 系统路由
 		systemAPIPrefix := common.SYSTEM_API_PREFIX + "/system"
 		{
-			// 系统用户路由
+			// 系统用户-路由
 			systemUserAPIPrefix := systemAPIPrefix + "/user"
 			{
-				// 系统用户登录路由
+				// 系统用户，登录路由
 				systemUserAuthRouterGroup := r.Group(systemUserAPIPrefix)
 				systemUserAuthRouterGroup.Use(auth.MiddlewareFunc())
 				router.SystemUserAuth(systemUserAuthRouterGroup, auth)
 			}
 			{
-				// 系统用户登录和授权路由
+				// 系统用户，登录和授权路由
 				systemUserAuthAndPermissionRouterGroup := r.Group(systemUserAPIPrefix)
 				systemUserAuthAndPermissionRouterGroup.Use(auth.MiddlewareFunc())
 				router.SystemUserAuthAndPermission(systemUserAuthAndPermissionRouterGroup, auth)
