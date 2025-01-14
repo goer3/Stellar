@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { App } from 'antd';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
-import { VerifyLocalTokenExpireTime, GetLocalToken, SetLocalTokenAndExpireTime, ClearLocalTokenAndExpireTime } from '@/handler/Token.jsx';
+import { VerifyLocalTokenExpireTime, GetLocalToken } from '@/handler/Token.jsx';
 import { RouteRules } from '@/route/RouteRules.jsx';
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,18 +63,23 @@ const RouteGuard = ({ children }) => {
           } else {
             // 1.2.2 本地 Token 没过期，则需要校验 Token 在后端缓存中是否过期
             const tokenVerificationApi = BackendApiPrefix + BackendApiSuffix.Public.Auth.TokenVerification.Path;
-            AxiosGET(tokenVerificationApi).then((res) => {
-              if (res.code !== 200) {
-                // 1.2.2.1 Token 失效，则返回登录页面
-                message.error('Token已失效，请重新登录');
-                ClearLocalStorageAndNavigateToLoginPath();
-              } else {
-                // 1.2.2.2 Token 没失效，但是访问 /login 页面，则不允许访问，直接返回 /dashboard 页面
+            const verifyTokenHandler = async () => {
+              try {
+                const res = await AxiosGET(tokenVerificationApi);
+                if (res.code !== 200) {
+                  message.error('Token已失效，请重新登录');
+                  ClearLocalStorageAndNavigateToLoginPath();
+                  return;
+                }
+                // Token 有效但访问登录页面时重定向到 dashboard
                 if (location.pathname === '/login') {
                   navigator('/dashboard');
                 }
+              } catch (error) {
+                message.error('系统异常，请稍后再试');
               }
-            });
+            };
+            verifyTokenHandler();
           }
         }
       }
