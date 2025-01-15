@@ -31,7 +31,7 @@ const BackendApiSuffix = {
     },
     User: {
       Auth: {
-        ApiList: { Path: '/user/api-list', Method: 'GET', Description: '获取用户授权接口列表，用于获取用户授权接口列表' }
+        ApiList: { Path: '/system/user/api-list', Method: 'GET', Description: '获取用户授权接口列表，用于获取用户授权接口列表' }
       },
       AuthAndPermission: {}
     },
