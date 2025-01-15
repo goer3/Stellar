@@ -66,15 +66,4 @@ var systemUserApis = []model.SystemApi{
 		Creator:             common.SYSTEM_DEFAULT_CREATOR,
 		SystemApiCategoryId: systemUserApiCategoryId,
 	},
-	{
-		BaseModel:           model.BaseModel{Id: systemUserApiStartId + 6},
-		Name:                "获取当前用户角色的Api列表",
-		Method:              "GET",
-		Path:                "/system/user/api-list",
-		Description:         "获取当前用户角色的Api列表，超级管理员返回所有Api列表，其他角色返回当前角色拥有的Api列表",
-		Permission:          trans.Uint(common.BOOLEAN_FALSE),
-		Disabled:            trans.Uint(common.BOOLEAN_TRUE),
-		Creator:             common.SYSTEM_DEFAULT_CREATOR,
-		SystemApiCategoryId: systemUserApiCategoryId,
-	},
 }

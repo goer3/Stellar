@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 import { GetLocalToken } from '@/handler/Token.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
+import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
 
 const { Header, Content, Sider } = Layout;
 
@@ -174,9 +175,25 @@ const AdminLayout = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 获取用户授权接口列表
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 用户授权接口列表
-  const [systemUserApiList, setSystemUserApiList] = useState([]);
+  // 获取系统角色授权接口列表的方法
+  const getSystemRoleApiListHandler = async () => {
+    const roleApiListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.ApiList.Path;
+    try {
+      const res = await AxiosGET(roleApiListApi);
+      if (res.code === 200) {
+        SystemRoleStates.SystemRoleApis = res.data.list;
+      } else {
+        message.error(res.message);
+      }
+    } catch (error) {
+      message.error('系统异常，请稍后再试');
+    }
+  };
 
+  // 获取系统角色授权接口列表，主要用于按钮鉴权，全局使用
+  useEffect(() => {
+    getSystemRoleApiListHandler();
+  }, []);
 
   return (
     <>

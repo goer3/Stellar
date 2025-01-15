@@ -30,13 +30,13 @@ const BackendApiSuffix = {
       AuthAndPermission: {}
     },
     User: {
-      Auth: {
-        ApiList: { Path: '/system/user/api-list', Method: 'GET', Description: '获取用户授权接口列表，用于获取用户授权接口列表' }
-      },
+      Auth: {},
       AuthAndPermission: {}
     },
     Role: {
-      Auth: {},
+      Auth: {
+        ApiList: { Path: '/system/role/api-list', Method: 'GET', Description: '获取角色授权接口列表，用于获取角色授权接口列表' }
+      },
       AuthAndPermission: {}
     },
     Menu: {
