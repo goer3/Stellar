@@ -77,4 +77,15 @@ var systemRoleApis = []model.SystemApi{
 		Creator:             common.SYSTEM_DEFAULT_CREATOR,
 		SystemApiCategoryId: systemRoleApiCategoryId,
 	},
+	{
+		BaseModel:           model.BaseModel{Id: systemRoleApiStartId + 7},
+		Name:                "获取系统角色的菜单列表",
+		Method:              "GET",
+		Path:                "/system/role/menu-list",
+		Description:         "获取系统角色的菜单列表，用于渲染用户的的菜单列表",
+		Permission:          trans.Uint(common.BOOLEAN_FALSE),
+		Disabled:            trans.Uint(common.BOOLEAN_TRUE),
+		Creator:             common.SYSTEM_DEFAULT_CREATOR,
+		SystemApiCategoryId: systemRoleApiCategoryId,
+	},
 }

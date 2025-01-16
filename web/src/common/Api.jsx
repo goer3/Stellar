@@ -35,7 +35,8 @@ const BackendApiSuffix = {
     },
     Role: {
       Auth: {
-        ApiList: { Path: '/system/role/api-list', Method: 'GET', Description: '获取角色授权接口列表，用于获取角色授权接口列表' }
+        ApiList: { Path: '/system/role/api-list', Method: 'GET', Description: '获取角色授权接口列表，用于获取角色授权接口列表' },
+        MenuList: { Path: '/system/role/menu-list', Method: 'GET', Description: '获取角色授权菜单列表，用于获取角色授权菜单列表' }
       },
       AuthAndPermission: {}
     },

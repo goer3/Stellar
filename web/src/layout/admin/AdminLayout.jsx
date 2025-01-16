@@ -195,6 +195,29 @@ const AdminLayout = () => {
     getSystemRoleApiListHandler();
   }, []);
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 获取用户授权的菜单列表
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 获取系统角色授权菜单列表的方法
+  const getSystemRoleMenuListHandler = async () => {
+    const roleMenuListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.MenuList.Path;
+    try {
+      const res = await AxiosGET(roleMenuListApi);
+      if (res.code === 200) {
+        SystemRoleStates.SystemRoleMenuList = res.data.list;
+      } else {
+        message.error(res.message);
+      }
+    } catch (error) {
+      message.error('系统异常，请稍后再试');
+    }
+  };
+
+  // 获取系统角色授权菜单列表
+  useEffect(() => {
+    getSystemRoleMenuListHandler();
+  }, []);
+
   return (
     <>
       <Layout>

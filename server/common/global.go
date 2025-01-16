@@ -20,18 +20,21 @@ var (
 
 // 全局变量，根据实际运行情况进行初始化
 var (
-	SystemVersion                  string  = ""                 // 系统后端版本
-	SystemConfigFilename           string  = ""                 // 系统运行配置
-	SystemListenHost               string  = ""                 // 监听地址
-	SystemListenPort               string  = ""                 // 监听端口
-	SystemRoleWebServer            string  = ""                 // 是否是 Web 后端服务角色，可选值：1、0
-	SystemRoleLeaderElection       string  = ""                 // 是否是领导者竞选角色，可选值：1、0
-	SystemRoleWorker               string  = ""                 // 是否是工作者角色，可选值：1、0
-	SystemNodeId                   *string                      // 系统运行生成的 ID，节点唯一标识
-	SystemNodeStartTime            *string                      // 系统启动时间
-	SystemSuperAdministratorRoleId uint    = 1                  // 系统超级管理员角色 ID
-	SystemAdministratorRoleIds     []uint  = []uint{1, 2}       // 系统管理员角色 ID
-	SystemProtectedRoleIds         []uint  = []uint{1, 2, 3, 4} // 系统预设的角色 ID，不允许修改和删除
+	SystemVersion                       string   = ""                                                                       // 系统后端版本
+	SystemConfigFilename                string   = ""                                                                       // 系统运行配置
+	SystemListenHost                    string   = ""                                                                       // 监听地址
+	SystemListenPort                    string   = ""                                                                       // 监听端口
+	SystemRoleWebServer                 string   = ""                                                                       // 是否是 Web 后端服务角色，可选值：1、0
+	SystemRoleLeaderElection            string   = ""                                                                       // 是否是领导者竞选角色，可选值：1、0
+	SystemRoleWorker                    string   = ""                                                                       // 是否是工作者角色，可选值：1、0
+	SystemNodeId                        *string                                                                             // 系统运行生成的 ID，节点唯一标识
+	SystemNodeStartTime                 *string                                                                             // 系统启动时间
+	SystemSuperAdministratorRoleId      uint     = 1                                                                        // 系统超级管理员角色 ID
+	SystemSuperAdministratorRoleKeyword string   = "SuperAdministrator"                                                     // 系统超级管理员角色关键字
+	SystemAdministratorRoleIds          []uint   = []uint{1, 2}                                                             // 系统管理员角色 ID
+	SystemAdministratorRoleKeywords     []string = []string{"SuperAdministrator", "Administrator"}                          // 系统管理员角色关键字
+	SystemProtectedRoleIds              []uint   = []uint{1, 2, 3, 4}                                                       // 系统预设的角色 ID，不允许修改和删除
+	SystemProtectedRoleKeywords         []string = []string{"SuperAdministrator", "Administrator", "ReadWrite", "ReadOnly"} // 系统预设的角色关键字，不允许修改和删除
 )
 
 // 全局固定配置
