@@ -181,7 +181,7 @@ const AdminLayout = () => {
     try {
       const res = await AxiosGET(roleApiListApi);
       if (res.code === 200) {
-        SystemRoleStates.SystemRoleApis = res.data.list;
+        SystemRoleStates.SystemRoleApiList = res.data.list;
       } else {
         message.error(res.message);
       }
