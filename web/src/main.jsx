@@ -26,7 +26,7 @@ createRoot(document.getElementById('root')).render(
         borderRadius: 0, // 圆角
         fontFamily: 'MiSans, serif', // 文字字体
         fontSize: 13, // 默认字号
-        controlHeight: 26 // 按钮和输入框等基础控件的高度，该高度会影响按钮和输入框上下边框样式
+        controlHeight: 28 // 按钮和输入框等基础控件的高度，该高度会影响按钮和输入框上下边框样式
       }
     }}
   >

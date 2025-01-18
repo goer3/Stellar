@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { Helmet } from 'react-helmet';
 import { TitleSuffix } from '@/common/Text.jsx';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
-import { App } from 'antd';
+import { App, Form, Col, Row, Space, Button } from 'antd';
+import { SearchOutlined, ClearOutlined, DownOutlined } from '@ant-design/icons';
+import { SYSTEM_USER_STATUS_MAP, SYSTEM_USER_GENDER_MAP } from '@/common/Map.jsx';
+import { GenerateFormItem } from '@/utils/Form.jsx';
 
 // 页面常量设置
 const PageConfig = {
@@ -47,8 +50,62 @@ const SystemUser = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 消息提示
   const { message } = App.useApp();
-  // 接口列表
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 基础数据
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 全局数据
   const { SystemRoleApiList, SystemRoleMenuList } = useSnapshot(SystemRoleStates);
+  // 角色数据
+  const [systemRoleList, setSystemRoleList] = useState([]);
+  // 部门数据
+  const [systemDepartmentList, setSystemDepartmentList] = useState([]);
+  // 职位数据
+  const [systemJobPositionList, setSystemJobPositionList] = useState([]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 数据筛选
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 表单字段定义说明：
+  // 1. label：表单字段名称
+  // 2. name：表单字段名称
+  // 3. placeholder：表单字段提示信息
+  // 4. type：表单字段类型，可选值：input、passwordInput、select、treeSelect
+  // 5. rules：表单字段验证规则
+  // 6. search：是否允许搜索
+  // 7. tree：是否是树形结构
+  // 8. multiple：是否允许多选
+  // 9. data：select 类型字段数据
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 数据筛选 form 表单定义
+  const filterFields = [
+    { label: '工号', name: 'jobNumber', placeholder: '使用工号进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选工号长度不能超过 30 个字符' }] },
+    { label: '用户名', name: 'username', placeholder: '使用用户名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选用户名长度不能超过 30 个字符' }] },
+    { label: '中文名', name: 'cnName', placeholder: '使用中文名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选中文名长度不能超过 30 个字符' }] },
+    { label: '英文名', name: 'enName', placeholder: '使用英文名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选英文名长度不能超过 30 个字符' }] },
+    { label: '邮箱', name: 'email', placeholder: '使用邮箱进行筛选过滤', type: 'input', rules: [{ max: 50, message: '筛选邮箱长度不能超过 50 个字符' }] },
+    { label: '手机号', name: 'phone', placeholder: '使用手机号进行筛选过滤', type: 'input', rules: [{ max: 11, message: '筛选手机号长度不能超过 11 个字符' }] },
+    { label: '状态', name: 'status', placeholder: '使用状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: SYSTEM_USER_STATUS_MAP, rules: [] },
+    { label: '性别', name: 'gender', placeholder: '使用性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: SYSTEM_USER_GENDER_MAP, rules: [] },
+    { label: '角色', name: 'systemRole', placeholder: '使用角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: systemRoleList, rules: [] },
+    { label: '部门', name: 'systemDepartment', placeholder: '使用部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, data: systemDepartmentList, rules: [] },
+    { label: '职位', name: 'systemJobPosition', placeholder: '使用职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, data: systemJobPositionList, rules: [] }
+  ];
+
+  // 生成筛选表单
+  const [filterForm] = Form.useForm();
+
+  // 是否展开更多筛选
+  const [expandFilterForm, setExpandFilterForm] = useState(false);
+
+  // 生成筛选表单 Form.Item
+  const generateFilterFormItem = () => {
+    return filterFields.slice(0, expandFilterForm ? filterFields.length : PageConfig.defaultFilterExpandItemCount).map((field) => (
+      <Col span={6} key={field?.name}>
+        {GenerateFormItem(field)}
+      </Col>
+    ));
+  };
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 基础数据查询
@@ -68,7 +125,27 @@ const SystemUser = () => {
         </div>
       </div>
       {/* 页面主体 */}
-      <div className="admin-page-main"></div>
+      <div className="admin-page-main">
+        {/* 搜索栏 */}
+        <div className="admin-page-search">
+          <Form form={filterForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="filterForm" onFinish={() => {}} autoComplete="off">
+            <Row gutter={24}>
+              {generateFilterFormItem()}
+              <Col span={24} key="x" style={{ marginTop: '10px', textAlign: 'right' }}>
+                <Space>
+                  <Button icon={<SearchOutlined />} htmlType="submit">条件筛选</Button>
+                  <Button icon={<ClearOutlined />} onClick={() => filterForm.resetFields()}>清理条件</Button>
+                  {filterFields.length > PageConfig.defaultFilterExpandItemCount && (
+                    <a onClick={() => setExpandFilterForm(!expandFilterForm)}>
+                      <DownOutlined rotate={expandFilterForm ? 180 : 0} /> {expandFilterForm ? '收起条件' : '展开更多'}
+                    </a>
+                  )}
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+      </div>
     </>
   );
 };
