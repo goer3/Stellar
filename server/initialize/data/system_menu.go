@@ -25,7 +25,7 @@ var systemMenus = []model.SystemMenu{
 		Label:       "即时查询",
 		Key:         "/query",
 		Icon:        "ConsoleSqlOutlined",
-		Sort:        100,
+		Sort:        1000,
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: systemRoles,
 	},
@@ -35,7 +35,7 @@ var systemMenus = []model.SystemMenu{
 		Label:     "告警管理",
 		Key:       "/alert",
 		Icon:      "AlertOutlined",
-		Sort:      100,
+		Sort:      2000,
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: []model.SystemRole{
 			systemRoles[0],
@@ -49,7 +49,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "活跃告警",
 				Key:       "/alert/active",
 				Icon:      "",
-				Sort:      10,
+				Sort:      2100,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -63,7 +63,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "告警规则",
 				Key:       "/alert/rule",
 				Icon:      "",
-				Sort:      20,
+				Sort:      2200,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -77,7 +77,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "告警订阅",
 				Key:       "/alert/subscription",
 				Icon:      "",
-				Sort:      30,
+				Sort:      2300,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -91,7 +91,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "告警屏蔽",
 				Key:       "/alert/block",
 				Icon:      "",
-				Sort:      40,
+				Sort:      2400,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -105,7 +105,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "告警历史",
 				Key:       "/alert/history",
 				Icon:      "",
-				Sort:      50,
+				Sort:      2500,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -119,7 +119,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "告警回调",
 				Key:       "/alert/callback",
 				Icon:      "",
-				Sort:      60,
+				Sort:      2600,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -135,7 +135,7 @@ var systemMenus = []model.SystemMenu{
 		Label:     "告警通知",
 		Key:       "/alert-notification",
 		Icon:      "MailOutlined",
-		Sort:      100,
+		Sort:      3000,
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: []model.SystemRole{
 			systemRoles[0],
@@ -148,7 +148,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "通知媒介",
 				Key:       "/alert-notification/media",
 				Icon:      "",
-				Sort:      10,
+				Sort:      3100,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -161,7 +161,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "通知模板",
 				Key:       "/alert-notification/template",
 				Icon:      "",
-				Sort:      20,
+				Sort:      3200,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -176,7 +176,7 @@ var systemMenus = []model.SystemMenu{
 		Label:     "告警分组",
 		Key:       "/alert-group",
 		Icon:      "ProjectOutlined",
-		Sort:      100,
+		Sort:      4000,
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: []model.SystemRole{
 			systemRoles[0],
@@ -189,7 +189,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "项目管理",
 				Key:       "/alert-group/project",
 				Icon:      "",
-				Sort:      10,
+				Sort:      4100,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -202,7 +202,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "团队管理",
 				Key:       "/alert-group/team",
 				Icon:      "",
-				Sort:      20,
+				Sort:      4200,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -215,7 +215,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "人员排班",
 				Key:       "/alert-group/schedule",
 				Icon:      "",
-				Sort:      30,
+				Sort:      4300,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 			},
 		},
@@ -226,7 +226,7 @@ var systemMenus = []model.SystemMenu{
 		Label:     "数据来源",
 		Key:       "/datasource",
 		Icon:      "ApiOutlined",
-		Sort:      100,
+		Sort:      5000,
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: []model.SystemRole{
 			systemRoles[0],
@@ -239,7 +239,7 @@ var systemMenus = []model.SystemMenu{
 		Label:     "系统设置",
 		Key:       "/system",
 		Icon:      "ClusterOutlined",
-		Sort:      100,
+		Sort:      6000,
 		Creator:   common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: []model.SystemRole{
 			systemRoles[0],
@@ -252,7 +252,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "部门管理",
 				Key:       "/system/department",
 				Icon:      "",
-				Sort:      10,
+				Sort:      6100,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -265,7 +265,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "职位管理",
 				Key:       "/system/job-position",
 				Icon:      "",
-				Sort:      20,
+				Sort:      6200,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -278,7 +278,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "用户管理",
 				Key:       "/system/user",
 				Icon:      "",
-				Sort:      30,
+				Sort:      6300,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -291,7 +291,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "角色管理",
 				Key:       "/system/role",
 				Icon:      "",
-				Sort:      40,
+				Sort:      6400,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -304,7 +304,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "菜单管理",
 				Key:       "/system/menu",
 				Icon:      "",
-				Sort:      50,
+				Sort:      6500,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -317,7 +317,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "接口管理",
 				Key:       "/system/api",
 				Icon:      "",
-				Sort:      60,
+				Sort:      6600,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -330,7 +330,7 @@ var systemMenus = []model.SystemMenu{
 				Label:     "权限管理",
 				Key:       "/system/permission",
 				Icon:      "",
-				Sort:      70,
+				Sort:      6700,
 				Creator:   common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: []model.SystemRole{
 					systemRoles[0],
@@ -345,7 +345,7 @@ var systemMenus = []model.SystemMenu{
 		Label:       "个人中心",
 		Key:         "/me",
 		Icon:        "UserOutlined",
-		Sort:        100,
+		Sort:        7000,
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: systemRoles,
 	},
@@ -355,7 +355,7 @@ var systemMenus = []model.SystemMenu{
 		Label:       "安全审计",
 		Key:         "/security-audit",
 		Icon:        "FileProtectOutlined",
-		Sort:        100,
+		Sort:        8000,
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: systemRoles,
 		Children: []model.SystemMenu{
@@ -365,7 +365,7 @@ var systemMenus = []model.SystemMenu{
 				Label:       "登录日志",
 				Key:         "/security-audit/login",
 				Icon:        "",
-				Sort:        10,
+				Sort:        8100,
 				Creator:     common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: systemRoles,
 			},
@@ -375,7 +375,7 @@ var systemMenus = []model.SystemMenu{
 				Label:       "操作日志",
 				Key:         "/security-audit/operation",
 				Icon:        "",
-				Sort:        20,
+				Sort:        8200,
 				Creator:     common.SYSTEM_DEFAULT_CREATOR,
 				SystemRoles: systemRoles,
 			},
@@ -387,7 +387,7 @@ var systemMenus = []model.SystemMenu{
 		Label:       "系统信息",
 		Key:         "/system-information",
 		Icon:        "DeploymentUnitOutlined",
-		Sort:        100,
+		Sort:        9000,
 		Creator:     common.SYSTEM_DEFAULT_CREATOR,
 		SystemRoles: systemRoles,
 	},

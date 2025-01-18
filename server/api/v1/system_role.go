@@ -1,7 +1,9 @@
 package v1
 
 import (
+	"bytes"
 	"context"
+	"encoding/gob"
 	"encoding/json"
 	"stellar/common"
 	"stellar/model"
@@ -74,18 +76,47 @@ func GetSystemRoleApiListHandler(ctx *gin.Context) {
 
 // 获取角色的菜单列表
 func GetSystemRoleMenuListHandler(ctx *gin.Context) {
-	// 获取用户的角色 ID
-	systemRoleId, err := utils.ExtractUintResultFromContext(ctx, "systemRoleId")
+	// 获取用户的角色关键字
+	systemRoleKeyword, err := utils.ExtractStringResultFromContext(ctx, "systemRoleKeyword")
 	if err != nil {
 		response.FailedWithMessage("获取当前用户的角色信息失败")
 		return
 	}
-	// 通过角色查询菜单
+
+	// 拼接 Redis 中的 key
+	key := common.RKP_SYSTEM_ROLE_MENU_LIST + common.RK_SEPARATOR + systemRoleKeyword
+	// 创建 Redis 上下文
+	rctx := context.Background()
+	// 创建系统菜单列表对象
+	var systemMenuList []model.SystemMenu
+
+	// 查询 Redis 是否有缓存角色菜单列表
+	result := common.Cache.Get(rctx, key).Val()
+	if result != "" {
+		// 使用 GOB 解码
+		decoder := gob.NewDecoder(bytes.NewReader([]byte(result)))
+		if err := decoder.Decode(&systemMenuList); err == nil {
+			response.SuccessWithData(gin.H{
+				"list": systemMenuList,
+			})
+			return
+		}
+	}
+
+	// Redis 中没有查到数据，则需要查询数据库
 	var systemRole model.SystemRole
-	if err := common.DB.Preload("SystemMenus").Where("id = ?", systemRoleId).First(&systemRole).Error; err != nil {
+	if err := common.DB.Preload("SystemMenus").Where("keyword = ?", systemRoleKeyword).First(&systemRole).Error; err != nil {
 		response.FailedWithMessage("获取系统角色的菜单信息失败")
 		return
 	}
+
+	// 使用 GOB 编码并缓存到 Redis
+	var buf bytes.Buffer
+	encoder := gob.NewEncoder(&buf)
+	if err := encoder.Encode(systemRole.SystemMenus); err == nil {
+		common.Cache.Set(rctx, key, buf.String(), common.RKE_SYSTEM_ROLE_MENU_LIST)
+	}
+
 	response.SuccessWithData(gin.H{
 		"list": systemRole.SystemMenus,
 	})

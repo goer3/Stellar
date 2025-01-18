@@ -49,8 +49,6 @@ const SystemUser = () => {
   const { message } = App.useApp();
   // 接口列表
   const { SystemRoleApiList, SystemRoleMenuList } = useSnapshot(SystemRoleStates);
-  console.log(SystemRoleMenuList);
-  console.log(SystemRoleApiList);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 基础数据查询

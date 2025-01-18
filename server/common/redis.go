@@ -19,8 +19,8 @@ const (
 	RKP_WEB_SERVER            = "WebServer"          // Web 后端服务，格式：WebServer:ClientId
 	RKP_LOGIN_TOKEN           = "LoginToken"         // 登录 Token，格式：LoginToken:Username
 	RKP_LOGIN_ERROR_TIMES     = "LoginErrorTimes"    // 登录错误次数，格式：LoginErrorTimes:Account:IP
-	RKP_SYSTEM_ROLE_API_LIST  = "SystemRoleApiList"  // 系统角色Api列表，格式：SystemRoleApiList:RoleKeyword
-	RKP_SYSTEM_ROLE_MENU_LIST = "SystemRoleMenuList" // 系统角色菜单列表，格式：SystemRoleMenuList:RoleKeyword
+	RKP_SYSTEM_ROLE_API_LIST  = "SystemRoleApiList"  // 系统角色Api列表，[]string 使用 JSON 序列化，格式：SystemRoleApiList:RoleKeyword
+	RKP_SYSTEM_ROLE_MENU_LIST = "SystemRoleMenuList" // 系统角色菜单列表，[]model.SystemMenu 使用 GOB 序列化，格式：SystemRoleMenuList:RoleKeyword
 )
 
 // Redis 键过期时间

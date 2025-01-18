@@ -11,6 +11,7 @@ import { GetLocalToken } from '@/handler/Token.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
+import { GenerateMenuTree } from '@/utils/Tree.jsx';
 
 const { Header, Content, Sider } = Layout;
 
@@ -75,37 +76,32 @@ const AdminLayout = () => {
   const siderMenuCollapsedWidth = 60;
 
   // 侧边菜单数据
-  const siderMenuItems = [
-    generateMenuItem('工作空间', '/dashboard', 'DesktopOutlined'),
-    generateMenuItem('即时查询', '/query', 'ConsoleSqlOutlined'),
-    generateMenuItem('告警管理', '/alert', 'AlertOutlined', [
-      generateMenuItem('活跃告警', '/alert/active'),
-      generateMenuItem('告警规则', '/alert/rule'),
-      generateMenuItem('告警订阅', '/alert/subscription'),
-      generateMenuItem('告警屏蔽', '/alert/block'),
-      generateMenuItem('告警历史', '/alert/history'),
-      generateMenuItem('告警回调', '/alert/callback')
-    ]),
-    generateMenuItem('告警通知', '/alert-notification', 'MailOutlined', [generateMenuItem('通知媒介', '/alert-notification/media'), generateMenuItem('通知模板', '/alert-notification/template')]),
-    generateMenuItem('告警分组', '/alert-group', 'ProjectOutlined', [
-      generateMenuItem('项目管理', '/alert-group/project'),
-      generateMenuItem('团队管理', '/alert-group/team'),
-      generateMenuItem('人员排班', '/alert-group/schedule')
-    ]),
-    generateMenuItem('数据来源', '/datasource', 'ApiOutlined'),
-    generateMenuItem('系统设置', '/system', 'ClusterOutlined', [
-      generateMenuItem('部门管理', '/system/department'),
-      generateMenuItem('职位管理', '/system/job-position'),
-      generateMenuItem('用户管理', '/system/user'),
-      generateMenuItem('角色管理', '/system/role'),
-      generateMenuItem('菜单管理', '/system/menu'),
-      generateMenuItem('接口管理', '/system/api'),
-      generateMenuItem('权限管理', '/system/permission')
-    ]),
-    generateMenuItem('个人中心', '/me', 'UserOutlined'),
-    generateMenuItem('安全审计', '/security-audit', 'FileProtectOutlined', [generateMenuItem('登录日志', '/security-audit/login'), generateMenuItem('操作日志', '/security-audit/operation')]),
-    generateMenuItem('系统信息', '/system-information', 'DeploymentUnitOutlined')
-  ];
+  const [siderMenuTreeItems, setSiderMenuTreeItems] = useState([]);
+
+  // 获取系统角色授权菜单列表的方法
+  const getSystemRoleMenuListHandler = async () => {
+    const roleMenuListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.MenuList.Path;
+    try {
+      const res = await AxiosGET(roleMenuListApi);
+      if (res.code === 200) {
+        SystemRoleStates.SystemRoleMenuList = res.data.list;
+      } else {
+        message.error(res.message);
+      }
+    } catch (error) {
+      message.error('系统异常，请稍后再试');
+    }
+  };
+
+  // 获取系统角色授权菜单列表
+  useEffect(() => {
+    const fetchAndGenerateMenu = async () => {
+      await getSystemRoleMenuListHandler();
+      const menuItems = GenerateMenuTree(0, SystemRoleStates.SystemRoleMenuList);
+      setSiderMenuTreeItems(menuItems);
+    };
+    fetchAndGenerateMenu();
+  }, []);
 
   // 监听 pathname 变化，更新菜单
   useEffect(() => {
@@ -195,29 +191,6 @@ const AdminLayout = () => {
     getSystemRoleApiListHandler();
   }, []);
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 获取用户授权的菜单列表
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 获取系统角色授权菜单列表的方法
-  const getSystemRoleMenuListHandler = async () => {
-    const roleMenuListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.MenuList.Path;
-    try {
-      const res = await AxiosGET(roleMenuListApi);
-      if (res.code === 200) {
-        SystemRoleStates.SystemRoleMenuList = res.data.list;
-      } else {
-        message.error(res.message);
-      }
-    } catch (error) {
-      message.error('系统异常，请稍后再试');
-    }
-  };
-
-  // 获取系统角色授权菜单列表
-  useEffect(() => {
-    getSystemRoleMenuListHandler();
-  }, []);
-
   return (
     <>
       <Layout>
@@ -251,7 +224,7 @@ const AdminLayout = () => {
               openKeys={siderMenuOpenKeys} // 展开菜单
               onOpenChange={setSiderMenuOpenKeys} // 展开菜单改变处理函数
               selectedKeys={siderMenuSelectedKeys} // 选中菜单
-              items={siderMenuItems} // 菜单项
+              items={siderMenuTreeItems} // 菜单项
               onClick={siderMenuClickHandler} // 点击菜单处理函数
             />
           </Sider>
