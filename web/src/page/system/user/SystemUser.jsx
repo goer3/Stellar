@@ -78,7 +78,7 @@ const SystemUser = () => {
   // 9. data：select 类型字段数据
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 数据筛选 form 表单定义
-  const filterFields = [
+  const systemUserFilterFields = [
     { label: '工号', name: 'jobNumber', placeholder: '使用工号进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选工号长度不能超过 30 个字符' }] },
     { label: '用户名', name: 'username', placeholder: '使用用户名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选用户名长度不能超过 30 个字符' }] },
     { label: '中文名', name: 'cnName', placeholder: '使用中文名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选中文名长度不能超过 30 个字符' }] },
@@ -93,14 +93,14 @@ const SystemUser = () => {
   ];
 
   // 生成筛选表单
-  const [filterForm] = Form.useForm();
+  const [systemUserFilterForm] = Form.useForm();
 
   // 是否展开更多筛选
-  const [expandFilterForm, setExpandFilterForm] = useState(false);
+  const [expandSystemUserFilterForm, setExpandSystemUserFilterForm] = useState(false);
 
   // 生成筛选表单 Form.Item
-  const generateFilterFormItem = () => {
-    return filterFields.slice(0, expandFilterForm ? filterFields.length : PageConfig.defaultFilterExpandItemCount).map((field) => (
+  const generateSystemUserFilterFormItem = () => {
+    return systemUserFilterFields.slice(0, expandSystemUserFilterForm ? systemUserFilterFields.length : PageConfig.defaultFilterExpandItemCount).map((field) => (
       <Col span={6} key={field?.name}>
         {GenerateFormItem(field)}
       </Col>
@@ -128,16 +128,16 @@ const SystemUser = () => {
       <div className="admin-page-main">
         {/* 搜索栏 */}
         <div className="admin-page-search">
-          <Form form={filterForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="filterForm" onFinish={() => {}} autoComplete="off">
+          <Form form={systemUserFilterForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserFilterForm" onFinish={() => {}} autoComplete="off">
             <Row gutter={24}>
-              {generateFilterFormItem()}
+              {generateSystemUserFilterFormItem()}
               <Col span={24} key="x" style={{ marginTop: '10px', textAlign: 'right' }}>
                 <Space>
                   <Button icon={<SearchOutlined />} htmlType="submit">条件筛选</Button>
-                  <Button icon={<ClearOutlined />} onClick={() => filterForm.resetFields()}>清理条件</Button>
-                  {filterFields.length > PageConfig.defaultFilterExpandItemCount && (
-                    <a onClick={() => setExpandFilterForm(!expandFilterForm)}>
-                      <DownOutlined rotate={expandFilterForm ? 180 : 0} /> {expandFilterForm ? '收起条件' : '展开更多'}
+                  <Button icon={<ClearOutlined />} onClick={() => systemUserFilterForm.resetFields()}>清理条件</Button>
+                  {systemUserFilterFields.length > PageConfig.defaultFilterExpandItemCount && (
+                    <a onClick={() => setExpandSystemUserFilterForm(!expandSystemUserFilterForm)}>
+                      <DownOutlined rotate={expandSystemUserFilterForm ? 180 : 0} /> {expandSystemUserFilterForm ? '收起条件' : '展开更多'}
                     </a>
                   )}
                 </Space>
