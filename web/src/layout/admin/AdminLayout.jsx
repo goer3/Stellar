@@ -15,14 +15,6 @@ import { GenerateMenuTree } from '@/utils/Tree.jsx';
 
 const { Header, Content, Sider } = Layout;
 
-// 生成菜单的方法
-const generateMenuItem = (label, key, icon, children) => ({
-  key,
-  icon: <DynamicIcon iconName={icon} />,
-  children,
-  label
-});
-
 // 传递 pathname 从 RuleRules 中获取父级菜单列表
 const findMenuParentPathList = (pathname) => {
   if (!pathname) return [];
@@ -80,9 +72,9 @@ const AdminLayout = () => {
 
   // 获取系统角色授权菜单列表的方法
   const getSystemRoleMenuListHandler = async () => {
-    const roleMenuListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.MenuList.Path;
+    const systemRoleMenuListApi = BackendApiPrefix + BackendApiSuffix.System.Role.Auth.MenuList.Path;
     try {
-      const res = await AxiosGET(roleMenuListApi);
+      const res = await AxiosGET(systemRoleMenuListApi);
       if (res.code === 200) {
         SystemRoleStates.SystemRoleMenuList = res.data.list;
       } else {

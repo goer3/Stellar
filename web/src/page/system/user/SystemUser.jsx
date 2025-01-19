@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 import { Helmet } from 'react-helmet';
 import { TitleSuffix } from '@/common/Text.jsx';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
-import { App, Form, Col, Row, Space, Button } from 'antd';
-import { SearchOutlined, ClearOutlined, DownOutlined } from '@ant-design/icons';
+import { App, Form, Col, Row, Space, Button, Avatar, Table, Descriptions, Dropdown, Popconfirm } from 'antd';
+import { SearchOutlined, ClearOutlined, DownOutlined, UserAddOutlined, UploadOutlined, DownloadOutlined, ClockCircleOutlined, EditOutlined, DeleteOutlined, RestOutlined, LockOutlined } from '@ant-design/icons';
 import { SYSTEM_USER_STATUS_MAP, SYSTEM_USER_GENDER_MAP } from '@/common/Map.jsx';
 import { GenerateFormItem } from '@/utils/Form.jsx';
+import { AxiosGET } from '@/handler/Request.jsx';
+import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
+import { GenerateGenderIcon, GenerateStatusTag, GenerateRoleTag } from '@/common/Tag.jsx';
 
 // 页面常量设置
 const PageConfig = {
@@ -17,7 +20,7 @@ const PageConfig = {
   // 默认数据总数
   defaultTotal: 0,
   // 默认是否需要分页
-  defaultIsPagination: true,
+  defaultPaginable: true,
   // 页面标题
   pageTitle: '用户管理' + TitleSuffix,
   // 页面描述
@@ -108,6 +111,100 @@ const SystemUser = () => {
   };
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 表格数据
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 用户操作按钮组
+  const systemUserActionButtons = (record) => {
+    return (
+      <>
+        <Space>
+          <Button color="primary" variant="link" icon={<EditOutlined />} onClick={() => {}}>编辑</Button>
+          {record.status === 1 ? (
+            <Popconfirm placement="topRight" title="确定要禁用该用户吗？" okText="确定" cancelText="取消" 
+              okButtonProps={{ style: { backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' } }}
+              onConfirm={() => {}}
+            >
+              <Button color="danger" variant="link" icon={<DeleteOutlined />}>禁用</Button>
+            </Popconfirm>
+          ) : (
+            <Popconfirm placement="topRight" title="确定要启用该用户吗？" okText="确定" cancelText="取消" 
+              okButtonProps={{ style: { backgroundColor: '#52c41a', borderColor: '#52c41a' } }} onConfirm={() => {}}>
+              <Button color="success" variant="link" icon={<RestOutlined />}>启用</Button>
+            </Popconfirm>
+          )}
+          <Button color="primary" variant="link" icon={<LockOutlined />} onClick={() => {}}>重置</Button>
+        </Space>
+      </>
+    );
+  };
+
+  // 表格列定义
+  const systemUserTableColumns = [
+    { title: '头像', dataIndex: 'avatar', key: 'avatar', width: 60, render: (avatar) => <Avatar src={avatar} /> },
+    { title: '性别', dataIndex: 'gender', key: 'gender', width: 60, render: (gender) => GenerateGenderIcon(gender) },
+    { title: '工号', dataIndex: 'jobNumber', key: 'jobNumber', width: 100 },
+    { title: '用户名', dataIndex: 'username', key: 'username', width: 100 },
+    { title: '中文名', dataIndex: 'cnName', key: 'cnName', width: 100 },
+    { title: '英文名', dataIndex: 'enName', key: 'enName', width: 150 },
+    { title: '邮箱', dataIndex: 'email', key: 'email', width: 180 },
+    { title: '手机号', dataIndex: 'phone', key: 'phone', width: 120 },
+    { title: '状态', dataIndex: 'status', key: 'status', width: 60, render: (status) => GenerateStatusTag(status) },
+    { title: '角色', dataIndex: ['systemRole', 'name'], key: 'systemRole', width: 120, render: (role) => GenerateRoleTag(role) },
+    { title: '部门', dataIndex: 'systemDepartments', key: 'systemDepartments', width: 200, render: (departments) => departments?.map((item) => item.name).join(',') },
+    { title: '职位', dataIndex: 'systemJobPositions', key: 'systemJobPositions', width: 300, render: (positions) => positions?.map((item) => item.name).join(',') },
+    { title: '操作', key: 'action', fixed: 'right', width: 150, render: (_, record) => systemUserActionButtons(record) }
+  ];
+
+  // 每页显示的数据条数
+  const [pageSize, setPageSize] = useState(PageConfig.defaultPageSize);
+  // 当前页码
+  const [pageNumber, setPageNumber] = useState(PageConfig.defaultPageNumber);
+  // 数据总数
+  const [total, setTotal] = useState(PageConfig.defaultTotal);
+  // 是否需要分页
+  const [paginable, setPaginable] = useState(PageConfig.defaultPaginable);
+  // 筛选参数
+  const [systemUserListFilterParams, setSystemUserListFilterParams] = useState({});
+  // 表格数据
+  const [systemUserTableDataSource, setSystemUserTableDataSource] = useState([]);
+
+  // 查询和筛选用户列表方法封装
+  const getSystemUserListRequest = async (params) => {
+    try {
+      const systemUserListApi = BackendApiPrefix + BackendApiSuffix.System.User.AuthAndPermission.List.Path;
+      const res = await AxiosGET(systemUserListApi, params);
+      if (res.code === 200) {
+        setSystemUserTableDataSource(res.data?.list);
+        setPageSize(res.data?.pagination?.pageSize);
+        setPageNumber(res.data?.pagination?.pageNumber);
+        setTotal(res.data?.pagination?.total);
+        setPaginable(res.data?.pagination?.paginable);
+      } else {
+        message.error(res.message);
+      }
+    } catch (error) {
+      console.error(error);
+      message.error('系统异常，请稍后再试');
+    }
+  };
+
+  // 手动筛选方法，需要先初始化页码，避免在结果溢出数据的页码的时候，导致请求参数中带了页码，无法请求到数据
+  // 比如在第三页的时候筛选，但是结果只有两页，则会因为页码问题，显示没有数据
+  const getSystemUserListHandler = (params) => {
+    setPageNumber(PageConfig.defaultPageNumber);
+    setPageSize(PageConfig.defaultPageSize);
+    setTotal(PageConfig.defaultTotal);
+    setPaginable(PageConfig.defaultPaginable);
+    setSystemUserListFilterParams(params);
+  };
+
+  // 监听展示条件变化，然后请求数据
+  useEffect(() => {
+    const params = { ...systemUserListFilterParams, pageSize, pageNumber, paginable };
+    getSystemUserListRequest(params);
+  }, [pageSize, pageNumber, paginable, systemUserListFilterParams]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 基础数据查询
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
@@ -128,13 +225,17 @@ const SystemUser = () => {
       <div className="admin-page-main">
         {/* 搜索栏 */}
         <div className="admin-page-search">
-          <Form form={systemUserFilterForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserFilterForm" onFinish={() => {}} autoComplete="off">
+          <Form form={systemUserFilterForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserFilterForm" onFinish={getSystemUserListHandler} autoComplete="off">
             <Row gutter={24}>
               {generateSystemUserFilterFormItem()}
               <Col span={24} key="x" style={{ marginTop: '10px', textAlign: 'right' }}>
                 <Space>
-                  <Button icon={<SearchOutlined />} htmlType="submit">条件筛选</Button>
-                  <Button icon={<ClearOutlined />} onClick={() => systemUserFilterForm.resetFields()}>清理条件</Button>
+                  <Button icon={<SearchOutlined />} htmlType="submit">
+                    条件筛选
+                  </Button>
+                  <Button icon={<ClearOutlined />} onClick={() => systemUserFilterForm.resetFields()}>
+                    清理条件
+                  </Button>
                   {systemUserFilterFields.length > PageConfig.defaultFilterExpandItemCount && (
                     <a onClick={() => setExpandSystemUserFilterForm(!expandSystemUserFilterForm)}>
                       <DownOutlined rotate={expandSystemUserFilterForm ? 180 : 0} /> {expandSystemUserFilterForm ? '收起条件' : '展开更多'}
@@ -144,6 +245,78 @@ const SystemUser = () => {
               </Col>
             </Row>
           </Form>
+        </div>
+        {/* 表格 */}
+        <div className="admin-page-list">
+          <div className="admin-page-btn-group">
+            <Space>
+              <Button type="primary" icon={<UserAddOutlined />} onClick={() => {}}>
+                添加用户
+              </Button>
+              <Button icon={<UploadOutlined />} onClick={() => {}}>
+                批量导入
+              </Button>
+              <Dropdown menu="">
+                <Button icon={<DownOutlined />}>批量操作</Button>
+              </Dropdown>
+            </Space>
+            <Space style={{ float: 'right' }}>
+              <Button icon={<DownloadOutlined />} onClick={() => {}}>
+                模板下载
+              </Button>
+              <Button icon={<ClockCircleOutlined />} onClick={() => {}}>
+                导入记录
+              </Button>
+            </Space>
+          </div>
+          <Table
+            // 表格布局大小
+            size="small"
+            // 表格布局方式，支持 fixed、auto
+            tableLayout="auto"
+            // 表格行选择
+            rowSelection={{ type: 'checkbox' }}
+            // 表格列
+            columns={systemUserTableColumns}
+            // 表格展开信息
+            expandable={{
+              expandedRowRender: (record) => {
+                const [username, cnName, enName, email] = record.creator.split(',');
+                const items = [
+                  { label: '用户创建者', children: `${cnName} / ${enName} (${username} / ${email})` },
+                  { label: '更新时间', children: record.updatedAt || '-' },
+                  { label: '最后登录 IP', children: record.lastLoginIP || '-' },
+                  { label: '最后登录时间', children: record.lastLoginTime || '-' }
+                ];
+                return <Descriptions column={1} items={items} />;
+              },
+              // 用于限制是否可以展开
+              rowExpandable: (record) => record.name !== 'Not Expandable'
+            }}
+            dataSource={systemUserTableDataSource}
+            // 行唯一标识
+            rowKey="id"
+            // 表格分页
+            pagination={{
+              pageSize: pageSize,
+              current: pageNumber,
+              total: total,
+              showTotal: (total) => `总共 ${total} 条记录`,
+              // 是否隐藏分页器，当只有一页时隐藏
+              // hideOnSinglePage: true,
+              // 是否允许修改显示数量
+              showSizeChanger: true,
+              // 是否显示快速跳转
+              showQuickJumper: true,
+              // 页码变化时触发
+              onChange: (page, pageSize) => {
+                setPageNumber(page);
+                setPageSize(pageSize);
+              }
+            }}
+            // 表格滚动，目的是为了最后一列固定
+            scroll={{ x: 'max-content' }}
+          />
         </div>
       </div>
     </>

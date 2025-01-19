@@ -51,6 +51,8 @@ const (
 	SYSTEM_DEFAULT_PASSWORD        string = "12345678"                                     // 系统默认密码
 	SYSTEM_DEFAULT_AVATAR          string = "/image/avatar/default.png"                    // 系统默认头像
 	SYSTEM_DEFAULT_CREATOR         string = "default,默认,Default,0"                         // 系统默认创建者
+	SYSTEM_PAGE_DEFAULT_SIZE       uint   = 10                                             // 系统默认分页数量
+	SYSTEM_PAGE_MAX_SIZE           uint   = 100                                            // 系统最大分页数量
 )
 
 // 格式常量

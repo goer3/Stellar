@@ -31,7 +31,9 @@ const BackendApiSuffix = {
     },
     User: {
       Auth: {},
-      AuthAndPermission: {}
+      AuthAndPermission: {
+        List: { Path: '/system/user/list', Method: 'GET', Description: '获取用户列表，用于获取用户列表' }
+      }
     },
     Role: {
       Auth: {
