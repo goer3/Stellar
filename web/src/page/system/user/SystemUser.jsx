@@ -233,7 +233,10 @@ const SystemUser = () => {
                   <Button icon={<SearchOutlined />} htmlType="submit">
                     条件筛选
                   </Button>
-                  <Button icon={<ClearOutlined />} onClick={() => systemUserFilterForm.resetFields()}>
+                  <Button icon={<ClearOutlined />} onClick={() => {
+                    systemUserFilterForm.resetFields();
+                    setSystemUserListFilterParams({});
+                  }}>
                     清理条件
                   </Button>
                   {systemUserFilterFields.length > PageConfig.defaultFilterExpandItemCount && (
