@@ -4,7 +4,19 @@ import { Helmet } from 'react-helmet';
 import { TitleSuffix } from '@/common/Text.jsx';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
 import { App, Form, Col, Row, Space, Button, Avatar, Table, Descriptions, Dropdown, Popconfirm } from 'antd';
-import { SearchOutlined, ClearOutlined, DownOutlined, UserAddOutlined, UploadOutlined, DownloadOutlined, ClockCircleOutlined, EditOutlined, DeleteOutlined, RestOutlined, LockOutlined } from '@ant-design/icons';
+import {
+  SearchOutlined,
+  ClearOutlined,
+  DownOutlined,
+  UserAddOutlined,
+  UploadOutlined,
+  DownloadOutlined,
+  ClockCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  RestOutlined,
+  LockOutlined
+} from '@ant-design/icons';
 import { SYSTEM_USER_STATUS_MAP, SYSTEM_USER_GENDER_MAP } from '@/common/Map.jsx';
 import { GenerateFormItem } from '@/utils/Form.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
@@ -118,21 +130,39 @@ const SystemUser = () => {
     return (
       <>
         <Space>
-          <Button color="primary" variant="link" icon={<EditOutlined />} onClick={() => {}}>编辑</Button>
+          <Button color="primary" variant="link" icon={<EditOutlined />} onClick={() => {}}>
+            编辑
+          </Button>
           {record.status === 1 ? (
-            <Popconfirm placement="topRight" title="确定要禁用该用户吗？" okText="确定" cancelText="取消" 
+            <Popconfirm
+              placement="topRight"
+              title="确定要禁用该用户吗？"
+              okText="确定"
+              cancelText="取消"
               okButtonProps={{ style: { backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' } }}
               onConfirm={() => {}}
             >
-              <Button color="danger" variant="link" icon={<DeleteOutlined />}>禁用</Button>
+              <Button color="danger" variant="link" icon={<DeleteOutlined />}>
+                禁用
+              </Button>
             </Popconfirm>
           ) : (
-            <Popconfirm placement="topRight" title="确定要启用该用户吗？" okText="确定" cancelText="取消" 
-              okButtonProps={{ style: { backgroundColor: '#52c41a', borderColor: '#52c41a' } }} onConfirm={() => {}}>
-              <Button color="success" variant="link" icon={<RestOutlined />}>启用</Button>
+            <Popconfirm
+              placement="topRight"
+              title="确定要启用该用户吗？"
+              okText="确定"
+              cancelText="取消"
+              okButtonProps={{ style: { backgroundColor: '#52c41a', borderColor: '#52c41a' } }}
+              onConfirm={() => {}}
+            >
+              <Button color="success" variant="link" icon={<RestOutlined />}>
+                启用
+              </Button>
             </Popconfirm>
           )}
-          <Button color="primary" variant="link" icon={<LockOutlined />} onClick={() => {}}>重置</Button>
+          <Button color="primary" variant="link" icon={<LockOutlined />} onClick={() => {}}>
+            重置
+          </Button>
         </Space>
       </>
     );
@@ -233,10 +263,13 @@ const SystemUser = () => {
                   <Button icon={<SearchOutlined />} htmlType="submit">
                     条件筛选
                   </Button>
-                  <Button icon={<ClearOutlined />} onClick={() => {
-                    systemUserFilterForm.resetFields();
-                    setSystemUserListFilterParams({});
-                  }}>
+                  <Button
+                    icon={<ClearOutlined />}
+                    onClick={() => {
+                      systemUserFilterForm.resetFields();
+                      setSystemUserListFilterParams({});
+                    }}
+                  >
                     清理条件
                   </Button>
                   {systemUserFilterFields.length > PageConfig.defaultFilterExpandItemCount && (
@@ -284,12 +317,13 @@ const SystemUser = () => {
             // 表格展开信息
             expandable={{
               expandedRowRender: (record) => {
-                const [username, cnName, enName, email] = record.creator.split(',');
+                const [username, cnName, enName, uid] = record.creator.split(',');
                 const items = [
-                  { label: '用户创建者', children: `${cnName} / ${enName} (${username} / ${email})` },
+                  { label: '用户创建者', children: `${cnName} / ${enName} (${username} / ${uid})` },
+                  { label: '创建时间', children: record.createdAt || '-' },
                   { label: '更新时间', children: record.updatedAt || '-' },
                   { label: '最后登录 IP', children: record.lastLoginIP || '-' },
-                  { label: '最后登录时间', children: record.lastLoginTime || '-' }
+                  { label: '最后登录时间', children: record.lastLoginAt || '-' }
                 ];
                 return <Descriptions column={1} items={items} />;
               },
