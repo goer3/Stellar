@@ -162,23 +162,8 @@
 
 .ant-table-wrapper .ant-table-thead > tr > th,
 .ant-table-wrapper .ant-table-thead > tr > td {
-  border-top: 1px solid #f0f0f0;
   height: @SMALL-TABLE-HEIGHT;
   line-height: @SMALL-TABLE-HEIGHT;
-}
-
-.ant-table-wrapper .ant-table-tbody > tr > th:first-child,
-.ant-table-wrapper .ant-table-tbody > tr > td:first-child,
-.ant-table-wrapper .ant-table-thead > tr > th:first-child,
-.ant-table-wrapper .ant-table-thead > tr > td:first-child {
-  border-left: 1px solid #f0f0f0;
-}
-
-.ant-table-wrapper .ant-table-tbody > tr > th:last-child,
-.ant-table-wrapper .ant-table-tbody > tr > td:last-child,
-.ant-table-wrapper .ant-table-thead > tr > th:last-child,
-.ant-table-wrapper .ant-table-thead > tr > td:last-child {
-  border-right: 1px solid #f0f0f0;
 }
 
 .ant-table-expanded-row > td {
@@ -187,7 +172,7 @@
 
 .ant-table-wrapper .ant-table-expanded-row-fixed {
   padding: 15px !important;
-  margin: 0 -20px !important;
+  margin: 0 !important;
 }
 
 .ant-descriptions .ant-descriptions-row > th,
@@ -384,4 +369,12 @@
 
 .ant-menu-inline-collapsed .anticon {
   vertical-align: -4px !important;
+}
+
+.ant-table-wrapper table {
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-descriptions .ant-descriptions-view table {
+  border: none;
 }

@@ -170,19 +170,19 @@ const SystemUser = () => {
 
   // 表格列定义
   const systemUserTableColumns = [
-    { title: '头像', dataIndex: 'avatar', key: 'avatar', width: 60, render: (avatar) => <Avatar src={avatar} /> },
-    { title: '性别', dataIndex: 'gender', key: 'gender', width: 60, render: (gender) => GenerateGenderIcon(gender) },
-    { title: '工号', dataIndex: 'jobNumber', key: 'jobNumber', width: 100 },
-    { title: '用户名', dataIndex: 'username', key: 'username', width: 100 },
-    { title: '中文名', dataIndex: 'cnName', key: 'cnName', width: 100 },
-    { title: '英文名', dataIndex: 'enName', key: 'enName', width: 150 },
-    { title: '邮箱', dataIndex: 'email', key: 'email', width: 180 },
-    { title: '手机号', dataIndex: 'phone', key: 'phone', width: 120 },
-    { title: '状态', dataIndex: 'status', key: 'status', width: 60, render: (status) => GenerateStatusTag(status) },
-    { title: '角色', dataIndex: ['systemRole', 'name'], key: 'systemRole', width: 120, render: (role) => GenerateRoleTag(role) },
-    { title: '部门', dataIndex: 'systemDepartments', key: 'systemDepartments', width: 200, render: (departments) => departments?.map((item) => item.name).join(',') },
-    { title: '职位', dataIndex: 'systemJobPositions', key: 'systemJobPositions', width: 300, render: (positions) => positions?.map((item) => item.name).join(',') },
-    { title: '操作', key: 'action', fixed: 'right', width: 150, render: (_, record) => systemUserActionButtons(record) }
+    { title: '头像', dataIndex: 'avatar', key: 'avatar', render: (avatar) => <Avatar src={avatar} /> },
+    { title: '性别', dataIndex: 'gender', key: 'gender', render: (gender) => GenerateGenderIcon(gender) },
+    { title: '工号', dataIndex: 'jobNumber', key: 'jobNumber' },
+    { title: '用户名', dataIndex: 'username', key: 'username' },
+    { title: '中文名', dataIndex: 'cnName', key: 'cnName' },
+    { title: '英文名', dataIndex: 'enName', key: 'enName' },
+    { title: '邮箱', dataIndex: 'email', key: 'email' },
+    { title: '手机号', dataIndex: 'phone', key: 'phone' },
+    { title: '状态', dataIndex: 'status', key: 'status', render: (status) => GenerateStatusTag(status) },
+    { title: '角色', dataIndex: ['systemRole', 'name'], key: 'systemRole', render: (role) => GenerateRoleTag(role) },
+    { title: '部门', dataIndex: 'systemDepartments', key: 'systemDepartments', render: (departments) => departments?.map((item) => item.name).join(',') },
+    { title: '职位', dataIndex: 'systemJobPositions', key: 'systemJobPositions', render: (positions) => positions?.map((item) => item.name).join(',') },
+    { title: '操作', key: 'action', fixed: 'right', minWidth: 150, render: (_, record) => systemUserActionButtons(record) }
   ];
 
   // 每页显示的数据条数
@@ -309,7 +309,7 @@ const SystemUser = () => {
             // 表格布局大小
             size="small"
             // 表格布局方式，支持 fixed、auto
-            tableLayout="auto"
+            tableLayout="fixed"
             // 表格行选择
             rowSelection={{ type: 'checkbox' }}
             // 表格列
