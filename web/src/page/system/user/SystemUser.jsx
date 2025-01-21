@@ -182,7 +182,7 @@ const SystemUser = () => {
     { title: '角色', dataIndex: ['systemRole', 'name'], key: 'systemRole', render: (role) => GenerateRoleTag(role) },
     { title: '部门', dataIndex: 'systemDepartments', key: 'systemDepartments', render: (departments) => departments?.map((item) => item.name).join(',') },
     { title: '职位', dataIndex: 'systemJobPositions', key: 'systemJobPositions', render: (positions) => positions?.map((item) => item.name).join(',') },
-    { title: '操作', key: 'action', fixed: 'right', minWidth: 150, render: (_, record) => systemUserActionButtons(record) }
+    { title: '操作', key: 'action', fixed: 'right', width: 150, render: (_, record) => systemUserActionButtons(record) }
   ];
 
   // 每页显示的数据条数
