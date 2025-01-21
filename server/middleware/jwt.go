@@ -34,10 +34,8 @@ func JWTAuth() (*jwt.GinJWTMiddleware, error) {
 	})
 }
 
-// 隶属 Login 中间件
-// 当调用 LoginHandler 就会触发：通过从 ctx 中检索出数据，进行用户登录认证
-// 返回包含用户信息的 Map 或者 Struct
-func authenticator(ctx *gin.Context) (interface{}, error) {
+// 密码登录验证方式
+func passwordAuthenticator(ctx *gin.Context) (interface{}, error) {
 	// 1. 从请求体中获取登录请求
 	var req dto.LoginRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -134,6 +132,24 @@ func authenticator(ctx *gin.Context) (interface{}, error) {
 	// 8. 设置用户名并返回，方便后续直接解析出用户名然后根据用户名查询 Redis 中保存的 Token
 	ctx.Set("username", systemUser.Username)
 	return &systemUser, nil
+}
+
+// 钉钉扫码登录验证方式
+func dingtalkScanCodeAuthenticator(ctx *gin.Context) (interface{}, error) {
+	return nil, nil
+}
+
+// 飞书扫码登录验证方式
+func feishuScanCodeAuthenticator(ctx *gin.Context) (interface{}, error) {
+	return nil, nil
+}
+
+// 隶属 Login 中间件
+// 当调用 LoginHandler 就会触发：通过从 ctx 中检索出数据，进行用户登录认证
+// 返回包含用户信息的 Map 或者 Struct
+func authenticator(ctx *gin.Context) (interface{}, error) {
+	// 密码登录
+	return passwordAuthenticator(ctx)
 }
 
 // 隶属 Login 中间件
