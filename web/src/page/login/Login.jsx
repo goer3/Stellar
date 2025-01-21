@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { App, Button, Checkbox, Divider, Form, Input } from 'antd';
-import { DingtalkOutlined, InsuranceOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { InsuranceOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { TitleSuffix } from '@/common/Text.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
+import { LoginQR, LoginPassword } from '@/common/Image.jsx';
 import { AxiosPOST } from '@/handler/Request.jsx';
 import { SetLocalTokenAndExpireTime } from '@/handler/Token.jsx';
 
@@ -19,6 +20,10 @@ const PageConfig = {
 const Login = () => {
   // 消息提示
   const { message } = App.useApp();
+
+  // 登录方式切换控制
+  const [qrCodeLogin, setQrCodeLogin] = useState(true);
+
   // 路由跳转
   const navigate = useNavigate();
   // 登录处理方法
@@ -81,7 +86,7 @@ const Login = () => {
                 { required: true, message: '请输入您的验证码' }
               ]}
             >
-              <Input autoComplete="off" className="admin-login-input" prefix={<InsuranceOutlined />} placeholder="手机令牌验证码" />
+              <Input autoComplete="off" className="admin-login-input" prefix={<InsuranceOutlined />} placeholder="双因子验证码，需要预先绑定设备" />
             </Form.Item>
 
             {/*邮件短信获取验证码方式*/}
@@ -115,12 +120,19 @@ const Login = () => {
                 登录
               </Button>
             </Form.Item>
-            <Divider className="admin-login-change">或者使用钉钉扫码直接登录</Divider>
-            {/* 钉钉扫码登录 */}
-            <Button className="admin-login-form-button" block icon={<DingtalkOutlined />}>
-              切换到钉钉扫码登录
-            </Button>
+            <Divider className="admin-login-bind">没有绑定双因子设备，立即绑定</Divider>
+            <div className="admin-login-btn-item">
+              <Button className="admin-login-form-button" block icon={<InsuranceOutlined />}>
+                绑定双因子设备
+              </Button>
+            </div>
           </Form>
+        </div>
+        <div className="admin-login-change-img" onClick={() => setQrCodeLogin(!qrCodeLogin)} style={{ display: qrCodeLogin ? 'block' : 'none' }}>
+          <img src={LoginQR} alt="登录背景" />
+        </div>
+        <div className="admin-login-change-img" onClick={() => setQrCodeLogin(!qrCodeLogin)} style={{ display: qrCodeLogin ? 'none' : 'block' }}>
+          <img src={LoginPassword} alt="登录背景" />
         </div>
       </div>
     </>
