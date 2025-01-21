@@ -337,6 +337,18 @@ var systemMenus = []model.SystemMenu{
 					systemRoles[1],
 				},
 			},
+			{
+				BaseModel: model.BaseModel{Id: 6800},
+				ParentId:  6000,
+				Label:     "系统配置",
+				Key:       "/system/setting",
+				Icon:      "",
+				Sort:      6800,
+				Creator:   common.SYSTEM_DEFAULT_CREATOR,
+				SystemRoles: []model.SystemRole{
+					systemRoles[0],
+				},
+			},
 		},
 	},
 	{

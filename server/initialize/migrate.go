@@ -11,6 +11,7 @@ import (
 // 数据表结构迁移
 func MigrateTables() {
 	fmt.Println(time.Now().Format(common.TIME_FORMAT_MILLISECOND), "\t开始进行数据表结构同步")
+	common.DB.AutoMigrate(&model.SystemSetting{})
 	common.DB.AutoMigrate(&model.SystemRole{})
 	common.DB.AutoMigrate(&model.SystemUser{})
 	common.DB.AutoMigrate(&model.SystemMenu{})
@@ -24,8 +25,9 @@ func MigrateTables() {
 // 数据表数据迁移
 func MigrateTablesData() {
 	fmt.Println(time.Now().Format(common.TIME_FORMAT_MILLISECOND), "\t开始进行数据表数据迁移")
-	data.MigrateSystemUserData()
+	data.MigrateSystemSettingData()
 	data.MigrateSystemRoleData()
+	data.MigrateSystemUserData()
 	data.MigrateSystemJobPositionData()
 	data.MigrateSystemDepartmentData()
 	data.MigrateSystemMenuData()
