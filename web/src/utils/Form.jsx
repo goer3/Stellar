@@ -9,9 +9,9 @@ const ComponentTypeMap = {
   // 文本输入框
   textarea: (props) => <Input.TextArea {...props} autoComplete="off" />,
   // 下拉框
-  select: (props) => <Select {...props} autoComplete="off" />,
+  select: (props) => <Select {...props} suffixIcon={null} autoComplete="off" />,
   // 树形下拉框
-  treeSelect: (props) => <TreeSelect {...props} autoComplete="off" treeDefaultExpandAll={true} />
+  treeSelect: (props) => <TreeSelect {...props} suffixIcon={null} autoComplete="off" treeDefaultExpandAll={true} />
 };
 
 // 传入字段定义信息，返回 Form.Item

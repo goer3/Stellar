@@ -118,11 +118,11 @@ const SystemUser = () => {
     { label: '英文名', name: 'enName', placeholder: '使用英文名进行筛选过滤', type: 'input', rules: [{ max: 30, message: '筛选英文名长度不能超过 30 个字符' }] },
     { label: '邮箱', name: 'email', placeholder: '使用邮箱进行筛选过滤', type: 'input', rules: [{ max: 50, message: '筛选邮箱长度不能超过 50 个字符' }] },
     { label: '手机号', name: 'phone', placeholder: '使用手机号进行筛选过滤', type: 'input', rules: [{ max: 11, message: '筛选手机号长度不能超过 11 个字符' }] },
-    { label: '状态', name: 'status', placeholder: '使用状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: SYSTEM_USER_STATUS_MAP, rules: [] },
-    { label: '性别', name: 'gender', placeholder: '使用性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: false, data: SYSTEM_USER_GENDER_MAP, rules: [] },
-    { label: '角色', name: 'systemRole', placeholder: '使用角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: systemRoleList, rules: [] },
-    { label: '部门', name: 'systemDepartment', placeholder: '使用部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
-    { label: '职位', name: 'systemJobPosition', placeholder: '使用职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemJobPositionList, rules: [] }
+    { label: '状态', name: 'status', placeholder: '通过选择状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_STATUS_MAP, rules: [] },
+    { label: '性别', name: 'gender', placeholder: '通过选择性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_GENDER_MAP, rules: [] },
+    { label: '角色', name: 'systemRole', placeholder: '通过选择角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: systemRoleList, rules: [] },
+    { label: '部门', name: 'systemDepartment', placeholder: '通过选择部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
+    { label: '职位', name: 'systemJobPosition', placeholder: '通过选择职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemJobPositionList, rules: [] }
   ];
 
   // 生成筛选表单
