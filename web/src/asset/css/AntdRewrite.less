@@ -383,3 +383,13 @@
 .ant-table-wrapper .ant-table-content {
   border: 1px solid #f0f0f0;
 }
+
+// 处理空表格的滚动条
+.ant-table-wrapper .ant-table-empty .ant-table-content {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+.ant-table-wrapper .ant-table-empty .ant-table-body {
+  overflow: hidden !important;
+}

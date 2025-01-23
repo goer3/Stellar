@@ -22,7 +22,7 @@ import { GenerateFormItem } from '@/utils/Form.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 import { GenerateGenderIcon, GenerateStatusTag, GenerateRoleTag } from '@/common/Tag.jsx';
-import { GenerateNameIdToLabelValueSelectDataList } from '@/utils/Select.jsx';
+import { GenerateNameIdSelectDataListHandler, GenerateNameIdSelectDataTreeHandler } from '@/utils/Select.jsx';
 
 // 页面常量设置
 const PageConfig = {
@@ -88,11 +88,11 @@ const SystemUser = () => {
   // 获取系统数据
   useEffect(() => {
     // 获取职位数据
-    GenerateNameIdToLabelValueSelectDataList(SystemJobPositionListApi, setSystemJobPositionList);
+    GenerateNameIdSelectDataListHandler(SystemJobPositionListApi, setSystemJobPositionList);
     // 获取部门数据
-    GenerateNameIdToLabelValueSelectDataList(SystemDepartmentListApi, setSystemDepartmentList);
+    GenerateNameIdSelectDataTreeHandler(SystemDepartmentListApi, setSystemDepartmentList);
     // 获取角色数据
-    GenerateNameIdToLabelValueSelectDataList(SystemRoleListApi, setSystemRoleList);
+    GenerateNameIdSelectDataListHandler(SystemRoleListApi, setSystemRoleList);
   }, []);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ const SystemUser = () => {
     { label: '状态', name: 'status', placeholder: '通过选择状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_STATUS_MAP, rules: [] },
     { label: '性别', name: 'gender', placeholder: '通过选择性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_GENDER_MAP, rules: [] },
     { label: '角色', name: 'systemRole', placeholder: '通过选择角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: systemRoleList, rules: [] },
-    { label: '部门', name: 'systemDepartment', placeholder: '通过选择部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
+    { label: '部门', name: 'systemDepartment', placeholder: '通过选择部门进行筛选过滤', type: 'treeSelect', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
     { label: '职位', name: 'systemJobPosition', placeholder: '通过选择职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemJobPositionList, rules: [] }
   ];
 

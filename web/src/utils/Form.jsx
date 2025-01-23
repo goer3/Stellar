@@ -11,7 +11,7 @@ const ComponentTypeMap = {
   // 下拉框
   select: (props) => <Select {...props} suffixIcon={null} autoComplete="off" />,
   // 树形下拉框
-  treeSelect: (props) => <TreeSelect {...props} suffixIcon={null} autoComplete="off" treeDefaultExpandAll={true} />
+  treeSelect: (props) => <TreeSelect {...props} suffixIcon={null} autoComplete="off" />
 };
 
 // 传入字段定义信息，返回 Form.Item
@@ -39,10 +39,11 @@ const GenerateFormItem = (field) => {
     },
     treeSelect: {
       allowClear: field?.allowClear, // 是否允许清空
-      options: field?.data, // 下拉框数据
+      treeData: field?.data, // 树形数据
       showSearch: field?.search, // 是否允许搜索
       treeNodeFilterProp: 'label', // 树形选择器过滤字段
-      mode: field?.multiple ? 'multiple' : 'default' // 是否允许多选
+      mode: field?.multiple ? 'multiple' : 'default', // 是否允许多选
+      treeDefaultExpandAll: true // 默认展开所有
     }
   };
 
