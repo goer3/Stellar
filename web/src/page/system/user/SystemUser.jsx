@@ -66,18 +66,12 @@ const SystemUser = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 消息提示
   const { message } = App.useApp();
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 基础数据
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 全局数据
   const { SystemRoleApiList, SystemRoleMenuList } = useSnapshot(SystemRoleStates);
-  // 职位数据
-  const [systemJobPositionList, setSystemJobPositionList] = useState([]);
-  // 部门数据
-  const [systemDepartmentList, setSystemDepartmentList] = useState([]);
-  // 角色数据
-  const [systemRoleList, setSystemRoleList] = useState([]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 数据筛选
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 职位接口地址
   const SystemJobPositionListApi = BackendApiPrefix + BackendApiSuffix.System.JobPosition.AuthAndPermission.List.Path;
   // 部门接口地址
@@ -85,18 +79,23 @@ const SystemUser = () => {
   // 角色接口地址
   const SystemRoleListApi = BackendApiPrefix + BackendApiSuffix.System.Role.AuthAndPermission.List.Path;
 
+  // 职位数据
+  const [systemJobPositionList, setSystemJobPositionList] = useState([]);
+  // 部门数据
+  const [systemDepartmentList, setSystemDepartmentList] = useState([]);
+  // 角色数据
+  const [systemRoleList, setSystemRoleList] = useState([]);
+
   // 获取系统数据
   useEffect(() => {
     // 获取职位数据
     GenerateNameIdSelectDataListHandler(SystemJobPositionListApi, setSystemJobPositionList);
-    // 获取部门数据
+    // 获取部门数据，生成树形结构
     GenerateNameIdSelectDataTreeHandler(SystemDepartmentListApi, setSystemDepartmentList);
     // 获取角色数据
     GenerateNameIdSelectDataListHandler(SystemRoleListApi, setSystemRoleList);
   }, []);
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 数据筛选
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 表单字段定义说明：
   // 1. label：表单字段名称
