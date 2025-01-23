@@ -23,24 +23,30 @@ const BackendApiSuffix = {
   System: {
     Department: {
       Auth: {},
-      AuthAndPermission: {}
+      AuthAndPermission: {
+        List: { Path: '/system/department/list', Method: 'GET', Description: '获取系统部门列表' }
+      }
     },
     JobPosition: {
       Auth: {},
-      AuthAndPermission: {}
+      AuthAndPermission: {
+        List: { Path: '/system/job-position/list', Method: 'GET', Description: '获取系统职位列表' }
+      }
     },
     User: {
       Auth: {},
       AuthAndPermission: {
-        List: { Path: '/system/user/list', Method: 'GET', Description: '获取用户列表，用于获取用户列表' }
+        List: { Path: '/system/user/list', Method: 'GET', Description: '获取用户列表' }
       }
     },
     Role: {
       Auth: {
-        ApiList: { Path: '/system/role/api-list', Method: 'GET', Description: '获取角色授权接口列表，用于获取角色授权接口列表' },
-        MenuList: { Path: '/system/role/menu-list', Method: 'GET', Description: '获取角色授权菜单列表，用于获取角色授权菜单列表' }
+        ApiList: { Path: '/system/role/api-list', Method: 'GET', Description: '获取角色授权接口列表' },
+        MenuList: { Path: '/system/role/menu-list', Method: 'GET', Description: '获取角色授权菜单列表' }
       },
-      AuthAndPermission: {}
+      AuthAndPermission: {
+        List: { Path: '/system/role/list', Method: 'GET', Description: '获取系统角色列表' }
+      }
     },
     Menu: {
       Auth: {},

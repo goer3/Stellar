@@ -10,10 +10,10 @@ import (
 
 // 系统部门列表
 func GetSystemDepartmentListHandler(c *gin.Context) {
-	var departmentList []model.SystemDepartment
-	if err := common.DB.Find(&departmentList).Error; err != nil {
+	var systemDepartmentList []model.SystemDepartment
+	if err := common.DB.Find(&systemDepartmentList).Error; err != nil {
 		response.FailedWithMessage("获取系统部门列表失败")
 		return
 	}
-	response.SuccessWithData(gin.H{"list": departmentList})
+	response.SuccessWithData(gin.H{"list": systemDepartmentList})
 }

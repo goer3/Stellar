@@ -22,6 +22,7 @@ import { GenerateFormItem } from '@/utils/Form.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
 import { GenerateGenderIcon, GenerateStatusTag, GenerateRoleTag } from '@/common/Tag.jsx';
+import { GenerateNameIdToLabelValueSelectDataList } from '@/utils/Select.jsx';
 
 // 页面常量设置
 const PageConfig = {
@@ -71,12 +72,28 @@ const SystemUser = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 全局数据
   const { SystemRoleApiList, SystemRoleMenuList } = useSnapshot(SystemRoleStates);
-  // 角色数据
-  const [systemRoleList, setSystemRoleList] = useState([]);
-  // 部门数据
-  const [systemDepartmentList, setSystemDepartmentList] = useState([]);
   // 职位数据
   const [systemJobPositionList, setSystemJobPositionList] = useState([]);
+  // 部门数据
+  const [systemDepartmentList, setSystemDepartmentList] = useState([]);
+  // 角色数据
+  const [systemRoleList, setSystemRoleList] = useState([]);
+  // 职位接口地址
+  const SystemJobPositionListApi = BackendApiPrefix + BackendApiSuffix.System.JobPosition.AuthAndPermission.List.Path;
+  // 部门接口地址
+  const SystemDepartmentListApi = BackendApiPrefix + BackendApiSuffix.System.Department.AuthAndPermission.List.Path;
+  // 角色接口地址
+  const SystemRoleListApi = BackendApiPrefix + BackendApiSuffix.System.Role.AuthAndPermission.List.Path;
+
+  // 获取系统数据
+  useEffect(() => {
+    // 获取职位数据
+    GenerateNameIdToLabelValueSelectDataList(SystemJobPositionListApi, setSystemJobPositionList);
+    // 获取部门数据
+    GenerateNameIdToLabelValueSelectDataList(SystemDepartmentListApi, setSystemDepartmentList);
+    // 获取角色数据
+    GenerateNameIdToLabelValueSelectDataList(SystemRoleListApi, setSystemRoleList);
+  }, []);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 数据筛选
@@ -90,7 +107,8 @@ const SystemUser = () => {
   // 6. search：是否允许搜索
   // 7. tree：是否是树形结构
   // 8. multiple：是否允许多选
-  // 9. data：select 类型字段数据
+  // 9. allowClear：是否允许清空
+  // 10. data：select 类型字段数据
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 数据筛选 form 表单定义
   const systemUserFilterFields = [
@@ -101,10 +119,10 @@ const SystemUser = () => {
     { label: '邮箱', name: 'email', placeholder: '使用邮箱进行筛选过滤', type: 'input', rules: [{ max: 50, message: '筛选邮箱长度不能超过 50 个字符' }] },
     { label: '手机号', name: 'phone', placeholder: '使用手机号进行筛选过滤', type: 'input', rules: [{ max: 11, message: '筛选手机号长度不能超过 11 个字符' }] },
     { label: '状态', name: 'status', placeholder: '使用状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: SYSTEM_USER_STATUS_MAP, rules: [] },
-    { label: '性别', name: 'gender', placeholder: '使用性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: SYSTEM_USER_GENDER_MAP, rules: [] },
-    { label: '角色', name: 'systemRole', placeholder: '使用角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, data: systemRoleList, rules: [] },
-    { label: '部门', name: 'systemDepartment', placeholder: '使用部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, data: systemDepartmentList, rules: [] },
-    { label: '职位', name: 'systemJobPosition', placeholder: '使用职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, data: systemJobPositionList, rules: [] }
+    { label: '性别', name: 'gender', placeholder: '使用性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: false, data: SYSTEM_USER_GENDER_MAP, rules: [] },
+    { label: '角色', name: 'systemRole', placeholder: '使用角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: systemRoleList, rules: [] },
+    { label: '部门', name: 'systemDepartment', placeholder: '使用部门进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
+    { label: '职位', name: 'systemJobPosition', placeholder: '使用职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemJobPositionList, rules: [] }
   ];
 
   // 生成筛选表单

@@ -16,5 +16,6 @@ func SystemRoleAuth(rg *gin.RouterGroup, auth *jwt.GinJWTMiddleware) gin.IRoutes
 
 // 系统角色登录和授权路由
 func SystemRoleAuthAndPermission(rg *gin.RouterGroup, auth *jwt.GinJWTMiddleware) gin.IRoutes {
+	rg.GET("/list", v1.GetSystemRoleListHandler) // 获取系统角色列表
 	return rg
 }

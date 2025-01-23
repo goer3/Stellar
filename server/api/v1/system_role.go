@@ -13,6 +13,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 获取系统角色列表
+func GetSystemRoleListHandler(ctx *gin.Context) {
+	var systemRoleList []model.SystemRole
+	if err := common.DB.Find(&systemRoleList).Error; err != nil {
+		response.FailedWithMessage("获取系统角色列表失败")
+		return
+	}
+	response.SuccessWithData(gin.H{
+		"list": systemRoleList,
+	})
+}
+
 // 获取系统角色授权接口列表
 func GetSystemRoleApiListHandler(ctx *gin.Context) {
 	// 获取用户的角色关键字

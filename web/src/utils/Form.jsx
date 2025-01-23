@@ -18,7 +18,7 @@ const ComponentTypeMap = {
 const GenerateFormItem = (field) => {
   // 通用配置，所有都会用到的公共属性
   const commonConfig = {
-    allowClear: true, // 是否允许显示清空图标，都允许显示
+    allowClear: true, // 是否允许清空
     placeholder: field?.placeholder, // 输入框占位符
     hidden: field?.hidden, // 是否隐藏该字段
     disabled: field?.disabled, // 是否禁用该字段
@@ -31,17 +31,17 @@ const GenerateFormItem = (field) => {
     passwordInput: {},
     textarea: {},
     select: {
+      allowClear: field?.allowClear, // 是否允许清空
       options: field?.data, // 下拉框数据
       showSearch: field?.search, // 是否允许搜索
       optionFilterProp: 'label', // 选择器过滤字段
-      allowClear: false, // 是否允许清空，覆盖公共配置
       multiple: field?.multiple // 是否允许多选
     },
     treeSelect: {
+      allowClear: field?.allowClear, // 是否允许清空
       options: field?.data, // 下拉框数据
       showSearch: field?.search, // 是否允许搜索
       treeNodeFilterProp: 'label', // 树形选择器过滤字段
-      allowClear: false, // 是否允许清空，覆盖公共配置
       mode: field?.multiple ? 'multiple' : 'default' // 是否允许多选
     }
   };
