@@ -38,9 +38,41 @@ func Router() *gin.Engine {
 		// 系统路由
 		systemApiPrefix := common.SYSTEM_API_PREFIX + "/system"
 		{
+			// 系统职位-路由
+			systemJobPositionApiPrefix := systemApiPrefix + "/job-position"
 			{
-				// 系统用户-路由
-				systemUserApiPrefix := systemApiPrefix + "/user"
+				{
+					// 系统职位，登录路由
+					systemJobPositionAuthRouterGroup := r.Group(systemJobPositionApiPrefix)
+					systemJobPositionAuthRouterGroup.Use(auth.MiddlewareFunc())
+					router.SystemJobPositionAuth(systemJobPositionAuthRouterGroup, auth)
+				}
+				{
+					// 系统职位，登录和授权路由
+					systemJobPositionAuthAndPermissionRouterGroup := r.Group(systemJobPositionApiPrefix)
+					systemJobPositionAuthAndPermissionRouterGroup.Use(auth.MiddlewareFunc())
+					router.SystemJobPositionAuthAndPermission(systemJobPositionAuthAndPermissionRouterGroup, auth)
+				}
+			}
+			// 系统部门-路由
+			systemDepartmentApiPrefix := systemApiPrefix + "/department"
+			{
+				{
+					// 系统部门，登录路由
+					systemDepartmentAuthRouterGroup := r.Group(systemDepartmentApiPrefix)
+					systemDepartmentAuthRouterGroup.Use(auth.MiddlewareFunc())
+					router.SystemDepartmentAuth(systemDepartmentAuthRouterGroup, auth)
+				}
+				{
+					// 系统部门，登录和授权路由
+					systemDepartmentAuthAndPermissionRouterGroup := r.Group(systemDepartmentApiPrefix)
+					systemDepartmentAuthAndPermissionRouterGroup.Use(auth.MiddlewareFunc())
+					router.SystemDepartmentAuthAndPermission(systemDepartmentAuthAndPermissionRouterGroup, auth)
+				}
+			}
+			// 系统用户-路由
+			systemUserApiPrefix := systemApiPrefix + "/user"
+			{
 				{
 					// 系统用户，登录路由
 					systemUserAuthRouterGroup := r.Group(systemUserApiPrefix)
@@ -54,9 +86,9 @@ func Router() *gin.Engine {
 					router.SystemUserAuthAndPermission(systemUserAuthAndPermissionRouterGroup, auth)
 				}
 			}
+			// 系统角色-路由
+			systemRoleApiPrefix := systemApiPrefix + "/role"
 			{
-				// 系统角色-路由
-				systemRoleApiPrefix := systemApiPrefix + "/role"
 				{
 					// 系统角色，登录路由
 					systemRoleAuthRouterGroup := r.Group(systemRoleApiPrefix)
