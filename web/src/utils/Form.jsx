@@ -35,14 +35,14 @@ const GenerateFormItem = (field) => {
       options: field?.data, // 下拉框数据
       showSearch: field?.search, // 是否允许搜索
       optionFilterProp: 'label', // 选择器过滤字段
-      multiple: field?.multiple // 是否允许多选
+      mode: field?.multiple ? 'multiple' : 'default' // 是否允许多选
     },
     treeSelect: {
       allowClear: field?.allowClear, // 是否允许清空
       treeData: field?.data, // 树形数据
       showSearch: field?.search, // 是否允许搜索
       treeNodeFilterProp: 'label', // 树形选择器过滤字段
-      mode: field?.multiple ? 'multiple' : 'default', // 是否允许多选
+      multiple: field?.multiple, // 是否允许多选
       treeDefaultExpandAll: true // 默认展开所有
     }
   };

@@ -3,7 +3,7 @@ import { useSnapshot } from 'valtio';
 import { Helmet } from 'react-helmet';
 import { TitleSuffix } from '@/common/Text.jsx';
 import { SystemRoleStates } from '@/store/StoreSystemRole.jsx';
-import { App, Form, Col, Row, Space, Button, Avatar, Table, Descriptions, Dropdown, Popconfirm } from 'antd';
+import { App, Form, Col, Row, Space, Button, Avatar, Table, Descriptions, Dropdown, Popconfirm, Modal } from 'antd';
 import {
   SearchOutlined,
   ClearOutlined,
@@ -17,7 +17,7 @@ import {
   RestOutlined,
   LockOutlined
 } from '@ant-design/icons';
-import { SYSTEM_USER_STATUS_MAP, SYSTEM_USER_GENDER_MAP } from '@/common/Map.jsx';
+import { SYSTEM_USER_STATUS_MAP, SYSTEM_USER_GENDER_MAP, TRUE_FALSE_MAP } from '@/common/Map.jsx';
 import { GenerateFormItem } from '@/utils/Form.jsx';
 import { AxiosGET } from '@/handler/Request.jsx';
 import { BackendApiPrefix, BackendApiSuffix } from '@/common/Api.jsx';
@@ -120,19 +120,41 @@ const SystemUser = () => {
     { label: '状态', name: 'status', placeholder: '通过选择状态进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_STATUS_MAP, rules: [] },
     { label: '性别', name: 'gender', placeholder: '通过选择性别进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: SYSTEM_USER_GENDER_MAP, rules: [] },
     { label: '角色', name: 'systemRole', placeholder: '通过选择角色进行筛选过滤', type: 'select', search: true, tree: false, multiple: false, allowClear: true, data: systemRoleList, rules: [] },
-    { label: '部门', name: 'systemDepartment', placeholder: '通过选择部门进行筛选过滤', type: 'treeSelect', search: true, tree: true, multiple: false, allowClear: true, data: systemDepartmentList, rules: [] },
-    { label: '职位', name: 'systemJobPosition', placeholder: '通过选择职位进行筛选过滤', type: 'select', search: true, tree: true, multiple: false, allowClear: true, data: systemJobPositionList, rules: [] }
+    {
+      label: '部门',
+      name: 'systemDepartment',
+      placeholder: '通过选择部门进行筛选过滤',
+      type: 'treeSelect',
+      search: true,
+      tree: true,
+      multiple: false,
+      allowClear: true,
+      data: systemDepartmentList,
+      rules: []
+    },
+    {
+      label: '职位',
+      name: 'systemJobPosition',
+      placeholder: '通过选择职位进行筛选过滤',
+      type: 'select',
+      search: true,
+      tree: true,
+      multiple: false,
+      allowClear: true,
+      data: systemJobPositionList,
+      rules: []
+    }
   ];
 
   // 生成筛选表单
   const [systemUserFilterForm] = Form.useForm();
 
   // 是否展开更多筛选
-  const [expandSystemUserFilterForm, setExpandSystemUserFilterForm] = useState(false);
+  const [systemUserFilterFormExpand, setSystemUserFilterFormExpand] = useState(false);
 
   // 生成筛选表单 Form.Item
   const generateSystemUserFilterFormItem = () => {
-    return systemUserFilterFields.slice(0, expandSystemUserFilterForm ? systemUserFilterFields.length : PageConfig.defaultFilterExpandItemCount).map((field) => (
+    return systemUserFilterFields.slice(0, systemUserFilterFormExpand ? systemUserFilterFields.length : PageConfig.defaultFilterExpandItemCount).map((field) => (
       <Col span={6} key={field?.name}>
         {GenerateFormItem(field)}
       </Col>
@@ -252,6 +274,82 @@ const SystemUser = () => {
   }, [pageSize, pageNumber, paginable, systemUserListFilterParams]);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 添加用户弹窗
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 添加用户弹窗是否显示
+  const [systemUserAddModalVisible, setSystemUserAddModalVisible] = useState(false);
+
+  // 生成添加用户表单
+  const [systemUserAddForm] = Form.useForm();
+
+  // 用户信息基础列
+  const systemUserBasicFormFields = [
+    { label: '工号', name: 'jobNumber', placeholder: '请输入工号', type: 'input', rules: [
+      { required: true, message: '工号不能为空' }, 
+      { max: 30, message: '工号长度不能大于30个字符' }
+    ]},
+    { label: '用户名', name: 'username', placeholder: '请输入用户名', type: 'input', rules: [
+      { required: true, message: '用户名不能为空' },
+      { pattern: /^[a-zA-Z][a-zA-Z0-9_]*$/, message: '用户名只能以字母开头，且只能包含字母、数字和下划线' },
+      { max: 30, message: '用户名长度不能超过30个字符' },
+      { min: 3, message: '用户名长度不能小于3个字符' }
+    ]},
+    { label: '中文名', name: 'cnName', placeholder: '请输入中文名', type: 'input', rules: [
+      { required: true, message: '中文名不能为空' },
+      { max: 30, message: '中文名长度不能超过30个字符' },
+      { min: 2, message: '中文名长度不能小于2个字符' },
+      { pattern: /^[\u4E00-\u9FA5]+$/, message: '中文名只能包含中文' }
+    ]},
+    { label: '英文名', name: 'enName', placeholder: '请输入英文名', type: 'input', rules: [
+      { required: true, message: '英文名不能为空' },
+      { max: 30, message: '英文名长度不能超过30个字符' },
+      { min: 2, message: '英文名长度不能小于2个字符' },
+      { pattern: /^[a-zA-Z]+$/, message: '英文名只能包含字母' }
+    ]},
+    { label: '邮箱', name: 'email', placeholder: '请输入邮箱', type: 'input', rules: [
+      { required: true, message: '邮箱不能为空' },
+      { type: 'email', message: '请输入正确的邮箱格式' },
+      { max: 50, message: '邮箱长度不能超过50个字符' }
+    ]},
+    { label: '手机号', name: 'phone', placeholder: '请输入手机号', type: 'input', rules: [
+      { required: true, message: '手机号不能为空' },
+      { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式' },
+      { max: 11, message: '手机号长度不能超过11个字符' }
+    ]},
+    { label: '隐藏手机号', name: 'hidePhone', type: 'select', search: false, tree: false, multiple: false, data: TRUE_FALSE_MAP, rules: [
+      { required: true, message: '隐藏手机号不能为空' }
+    ]},
+    { label: '性别', name: 'gender', type: 'select', search: false, tree: false, multiple: false, data: SYSTEM_USER_GENDER_MAP, rules: [
+      { required: true, message: '性别不能为空' }
+    ]},
+    { label: '角色', name: 'systemRole', type: 'select', search: true, tree: false, multiple: false,
+      data: systemRoleList.map((role) => ({
+        ...role,
+        // 禁止选择超级管理员角色
+        // disabled: DISABLED_ROLE_IDS.includes(role.value)
+      })),
+      rules: [
+        { required: true, message: '角色不能为空' }
+    ]},
+    { label: '部门', name: 'systemDepartments', type: 'treeSelect', search: true, tree: true, multiple: true, data: systemDepartmentList, rules: [
+      { required: true, message: '部门不能为空' }
+    ]},
+    { label: '职位', name: 'systemJobPositions', type: 'select', search: true, tree: false, multiple: true, data: systemJobPositionList, rules: [
+      { required: true, message: '职位不能为空' }
+    ]}
+  ];
+
+  // 生成添加用户表单
+  const generateSystemUserAddFormItem = () => {
+    return systemUserBasicFormFields.map((item) => GenerateFormItem(item));
+  };
+
+  // 添加用户方法
+  const systemUserAddHandler = (values) => {
+    console.log(values);
+  };
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 基础数据查询
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
@@ -290,8 +388,8 @@ const SystemUser = () => {
                     清理条件
                   </Button>
                   {systemUserFilterFields.length > PageConfig.defaultFilterExpandItemCount && (
-                    <a onClick={() => setExpandSystemUserFilterForm(!expandSystemUserFilterForm)}>
-                      <DownOutlined rotate={expandSystemUserFilterForm ? 180 : 0} /> {expandSystemUserFilterForm ? '收起条件' : '展开更多'}
+                    <a onClick={() => setSystemUserFilterFormExpand(!systemUserFilterFormExpand)}>
+                      <DownOutlined rotate={systemUserFilterFormExpand ? 180 : 0} /> {systemUserFilterFormExpand ? '收起条件' : '展开更多'}
                     </a>
                   )}
                 </Space>
@@ -303,7 +401,7 @@ const SystemUser = () => {
         <div className="admin-page-list">
           <div className="admin-page-btn-group">
             <Space>
-              <Button type="primary" icon={<UserAddOutlined />} onClick={() => {}}>
+              <Button type="primary" icon={<UserAddOutlined />} onClick={() => setSystemUserAddModalVisible(true)}>
                 添加用户
               </Button>
               <Button icon={<UploadOutlined />} onClick={() => {}}>
@@ -373,6 +471,24 @@ const SystemUser = () => {
           />
         </div>
       </div>
+
+      {/* 添加用户弹窗 */}
+      <Modal title={'添加用户'} open={systemUserAddModalVisible} onCancel={() => setSystemUserAddModalVisible(false)} width={400} maskClosable={false} footer={null} afterOpenChange={() => systemUserAddForm.resetFields()}>
+        <Form form={systemUserAddForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserAddForm" onFinish={systemUserAddHandler} autoComplete="off">
+          {generateSystemUserAddFormItem()}
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <Button type="primary" htmlType="submit" block>添加用户</Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 批量导入弹窗 */}
+
+      {/* 批量操作弹窗 */}
+
+      {/* 模板下载弹窗 */}
+
+      {/* 导入记录弹窗 */}
     </>
   );
 };
