@@ -277,10 +277,10 @@ const SystemUser = () => {
   // 添加用户弹窗
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   // 添加用户弹窗是否显示
-  const [systemUserAddModalVisible, setSystemUserAddModalVisible] = useState(false);
+  const [systemUserCreateModalVisible, setSystemUserCreateModalVisible] = useState(false);
 
   // 生成添加用户表单
-  const [systemUserAddForm] = Form.useForm();
+  const [systemUserCreateForm] = Form.useForm();
 
   // 用户信息基础列
   const systemUserBasicFormFields = [
@@ -339,13 +339,13 @@ const SystemUser = () => {
     ]}
   ];
 
-  // 生成添加用户表单
-  const generateSystemUserAddFormItem = () => {
+  // 生成创建用户表单
+  const generateSystemUserCreateFormItem = () => {
     return systemUserBasicFormFields.map((item) => GenerateFormItem(item));
   };
 
-  // 添加用户方法
-  const systemUserAddHandler = (values) => {
+  // 创建用户方法
+  const systemUserCreateHandler = (values) => {
     console.log(values);
   };
 
@@ -401,8 +401,8 @@ const SystemUser = () => {
         <div className="admin-page-list">
           <div className="admin-page-btn-group">
             <Space>
-              <Button type="primary" icon={<UserAddOutlined />} onClick={() => setSystemUserAddModalVisible(true)}>
-                添加用户
+              <Button type="primary" icon={<UserAddOutlined />} onClick={() => setSystemUserCreateModalVisible(true)}>
+                创建用户
               </Button>
               <Button icon={<UploadOutlined />} onClick={() => {}}>
                 批量导入
@@ -473,11 +473,11 @@ const SystemUser = () => {
       </div>
 
       {/* 添加用户弹窗 */}
-      <Modal title={'添加用户'} open={systemUserAddModalVisible} onCancel={() => setSystemUserAddModalVisible(false)} width={400} maskClosable={false} footer={null} afterOpenChange={() => systemUserAddForm.resetFields()}>
-        <Form form={systemUserAddForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserAddForm" onFinish={systemUserAddHandler} autoComplete="off">
-          {generateSystemUserAddFormItem()}
+      <Modal title={'创建用户'} open={systemUserCreateModalVisible} onCancel={() => setSystemUserCreateModalVisible(false)} width={400} maskClosable={false} footer={null} afterOpenChange={() => systemUserCreateForm.resetFields()}>
+        <Form form={systemUserCreateForm} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} colon={false} name="systemUserCreateForm" onFinish={systemUserCreateHandler} autoComplete="off">
+          {generateSystemUserCreateFormItem()}
           <Form.Item wrapperCol={{ span: 24 }}>
-            <Button type="primary" htmlType="submit" block>添加用户</Button>
+            <Button type="primary" htmlType="submit" block>创建用户</Button>
           </Form.Item>
         </Form>
       </Modal>

@@ -133,3 +133,31 @@ func GetSystemUserListHandler(ctx *gin.Context) {
 	// 返回结果
 	response.SuccessWithData(resp)
 }
+
+// 获取指定用户详情
+func GetSystemUserDetailHandler(ctx *gin.Context) {
+
+}
+
+// 创建用户
+func CreateSystemUserHandler(ctx *gin.Context) {
+
+}
+
+// 批量导入用户
+func BatchImportSystemUserHandler(ctx *gin.Context) {
+
+}
+
+// 更新用户详情
+func UpdateSystemUserDetailHandler(ctx *gin.Context) {
+
+}
+
+// 批量修改用户
+func BatchModifySystemUserHandler(ctx *gin.Context) {
+	// 用户状态：operationType(Status)
+	// 用户角色：operationType(SystemRole)
+	// 用户部门：operationType(SystemDepartment)
+	// 用户岗位：operationType(SystemJobPosition)
+}
